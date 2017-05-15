@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class HomeScreen;
+
 @interface ViewController : UIViewController
+
+@property (nonatomic, strong) NSArray *currentPhoneSize;
+@property (nonatomic, retain) HomeScreen *homeScreen;
 
 
 @end
