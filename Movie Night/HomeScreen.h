@@ -17,11 +17,12 @@
 @property (nonatomic, strong) NSArray *currentPhoneSize;
 @property (nonatomic, strong) NSString *imageFile;
 
-const NSArray *I_PHONE_5;
+//const NSArray *I_PHONE_5;
 
 
 //@property (nonatomic, weak) UIImageView *backgroundImage;
 
 -(void)getPhoneType: (int) width andHeight:(int)height;
+-(void)setHomeScreenImage:(NSArray*)screenSize;
 
 @end

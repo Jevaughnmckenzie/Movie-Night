@@ -8,6 +8,14 @@
 
 #import "HomeScreen.h"
 
+static const int I_PHONE_4_WIDTH = 320;
+static const int I_PHONE_4_HEIGHT = 480;
+static const int I_PHONE_5_WIDTH = 320;
+static const int I_PHONE_5_HEIGHT = 568;
+static const int I_PHONE_7_WIDTH = 375;
+static const int I_PHONE_7_HEIGHT = 667;
+static const int I_PHONE_7_PLUS_WIDTH = 414;
+static const int I_PHONE_7_PLUS_HEIGHT = 736;
 
 
 @implementation HomeScreen
@@ -19,13 +27,6 @@
     // Drawing code
 }
 */
-
-int main() {
-    static NSArray *const iPhone4 = @[@320, @480];
-    const NSArray *I_PHONE_5 = @[@320, @568];
-    const NSArray *I_PHONE_7 = @[@375, @667];
-    const NSArray *I_PHONE_7_PLUS = @[@414, @736];
-}
 
 -(id)init{
     if (self){
@@ -42,31 +43,31 @@ int main() {
     
     
     
-    NSArray *iPhoneSizes = @[iPhone4, I_PHONE_5, I_PHONE_7, I_PHONE_7_PLUS];
+    NSArray *iPhoneSizes = @[
+      @[@(I_PHONE_4_WIDTH), @(I_PHONE_4_HEIGHT)],
+      @[@(I_PHONE_5_WIDTH), @(I_PHONE_5_HEIGHT)],
+      @[@(I_PHONE_7_WIDTH), @(I_PHONE_7_HEIGHT)],
+      @[@(I_PHONE_7_PLUS_WIDTH), @(I_PHONE_7_PLUS_HEIGHT)]
+  ];
     
-    for (NSArray *iPhone in iPhoneSizes) {
-        if ([iPhone[0] intValue] == width ){
+    for ( NSArray *iPhone in iPhoneSizes){
+        if ( [iPhone[0] intValue] == width ){
             if ( [iPhone[1] intValue] == height ){
                 _currentPhoneSize = iPhone;
             }
         }
     }
-    
-
-    
-    
-    
 }
 
 -(void)setHomeScreenImage:(NSArray*)screenSize{
-    if ( [screenSize isEqualToArray:iPhone4] ){
+    if ( [screenSize isEqualToArray:@[@(I_PHONE_4_WIDTH), @(I_PHONE_4_HEIGHT)]] ){
         _imageFile = [[NSBundle mainBundle] pathForResource:@"bg-iphone4" ofType:@"png"];
-    } else if ( [screenSize isEqualToArray:I_PHONE_5] ){
+    } else if ( [screenSize isEqualToArray:@[@(I_PHONE_5_WIDTH), @(I_PHONE_5_HEIGHT)]] ){
         _imageFile = [[NSBundle mainBundle] pathForResource:@"bg-iphone5" ofType:@"png"];
         
-    } else if ([screenSize isEqualToArray:I_PHONE_7]){
+    } else if ([screenSize isEqualToArray:@[@(I_PHONE_7_WIDTH), @(I_PHONE_7_HEIGHT)]]){
         _imageFile = [[NSBundle mainBundle] pathForResource:@"bg-iphone6" ofType:@"png"];
-    } else if ([screenSize isEqualToArray:I_PHONE_7_PLUS]) {
+    } else if ([screenSize isEqualToArray:@[@(I_PHONE_7_PLUS_WIDTH), @(I_PHONE_7_PLUS_HEIGHT)]]) {
         _imageFile = [[NSBundle mainBundle] pathForResource:@"bg-iphone6plus" ofType:@"png"];
     }
     

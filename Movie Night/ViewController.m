@@ -37,6 +37,13 @@ enum phoneType{
 //    [self.view addSubview:imageView];
     [self setMainPageViews];
     [_homeScreen getPhoneType:self.view.frame.size.width andHeight:self.view.frame.size.height];
+    [_homeScreen setHomeScreenImage:_homeScreen.currentPhoneSize];
+    
+    _mdbClient = [[MDBClient alloc]init];
+    
+    [_mdbClient fetchGenres];
+    
+    
 }
 
 

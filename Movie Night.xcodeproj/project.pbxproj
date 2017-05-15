@@ -23,6 +23,7 @@
 		A8451A4F1EC9EAF9003FE223 /* GenreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A4E1EC9EAF9003FE223 /* GenreCell.m */; };
 		A8451A521EC9EB0C003FE223 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A511EC9EB0C003FE223 /* MovieCell.m */; };
 		A8451A551EC9EB5F003FE223 /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A541EC9EB5F003FE223 /* SelectionViewController.m */; };
+		A8451A581ECA287E003FE223 /* MDBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A571ECA287E003FE223 /* MDBClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,8 @@
 		A8451A511EC9EB0C003FE223 /* MovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MovieCell.m; path = ../MovieCell.m; sourceTree = "<group>"; };
 		A8451A531EC9EB5F003FE223 /* SelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionViewController.h; sourceTree = "<group>"; };
 		A8451A541EC9EB5F003FE223 /* SelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionViewController.m; sourceTree = "<group>"; };
+		A8451A561ECA287E003FE223 /* MDBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBClient.h; sourceTree = "<group>"; };
+		A8451A571ECA287E003FE223 /* MDBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,8 @@
 				A8451A4A1EC9DA9E003FE223 /* JSONDecodable.h */,
 				A8451A4B1EC9DAE8003FE223 /* Endpoint.h */,
 				A8451A4C1EC9DB88003FE223 /* ApiClient.h */,
+				A8451A561ECA287E003FE223 /* MDBClient.h */,
+				A8451A571ECA287E003FE223 /* MDBClient.m */,
 				A8451A4D1EC9EAF9003FE223 /* GenreCell.h */,
 				A8451A4E1EC9EAF9003FE223 /* GenreCell.m */,
 				A8451A501EC9EB0C003FE223 /* MovieCell.h */,
@@ -210,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8451A271EC8F4BB003FE223 /* ViewController.m in Sources */,
+				A8451A581ECA287E003FE223 /* MDBClient.m in Sources */,
 				A8451A551EC9EB5F003FE223 /* SelectionViewController.m in Sources */,
 				A8451A241EC8F4BB003FE223 /* AppDelegate.m in Sources */,
 				A8451A381EC8F4DD003FE223 /* Movie.m in Sources */,
@@ -373,6 +379,7 @@
 				A8451A351EC8F4BB003FE223 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

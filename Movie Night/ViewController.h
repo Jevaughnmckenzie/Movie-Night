@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MDBClient.h"
 
 @class HomeScreen;
+
 
 @interface ViewController : UIViewController
 
 @property (nonatomic, strong) NSArray *currentPhoneSize;
 @property (nonatomic, retain) HomeScreen *homeScreen;
+@property (nonatomic, retain) MDBClient *mdbClient;
 
 
 @end
