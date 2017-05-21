@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="UpR-lI-5Po">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,72 +22,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pav-De-bLN">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pav-De-bLN" customClass="HomeScreen">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HJP-fO-mVC">
-                                <rect key="frame" x="16" y="248" width="144" height="103"/>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxg-TU-UyQ">
+                                <rect key="frame" x="16" y="232" width="144" height="105"/>
+                                <accessibility key="accessibilityConfiguration" identifier="userOne"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="144" id="hiE-oC-m3b"/>
-                                    <constraint firstAttribute="height" constant="103" id="j7n-ul-HAU"/>
+                                    <constraint firstAttribute="height" constant="105" id="Cew-Cc-4ni"/>
+                                    <constraint firstAttribute="width" constant="144" id="Noo-ML-F34"/>
                                 </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MW4-ie-EDm">
-                                <rect key="frame" x="222" y="248" width="144" height="103"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="103" id="P3w-ER-bZq"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qxg-TU-UyQ">
-                                <rect key="frame" x="16" y="248" width="144" height="103"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="103" id="XAu-z3-845"/>
-                                    <constraint firstAttribute="width" constant="144" id="iyk-vU-wqZ"/>
-                                </constraints>
+                                <state key="normal" image="bubble-empty.png"/>
+                                <connections>
+                                    <action selector="selectPreferences:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3uQ-hX-CMn"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JeT-sh-ZcA">
-                                <rect key="frame" x="215" y="247" width="144" height="103"/>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JeT-sh-ZcA">
+                                <rect key="frame" x="215" y="232" width="144" height="105"/>
+                                <accessibility key="accessibilityConfiguration" identifier="userTwo"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="103" id="l09-sG-qoD"/>
-                                    <constraint firstAttribute="width" constant="144" id="t3L-Od-Vis"/>
+                                    <constraint firstAttribute="height" constant="105" id="6av-1Y-GCh"/>
+                                    <constraint firstAttribute="width" constant="144" id="HFI-Lb-kft"/>
                                 </constraints>
+                                <state key="normal" image="bubble-empty.png"/>
+                                <connections>
+                                    <action selector="selectPreferences:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t0s-hD-ymo"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="pav-De-bLN" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="0Mo-gt-VFa"/>
-                            <constraint firstItem="HJP-fO-mVC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="4KC-br-0kh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="pav-De-bLN" secondAttribute="trailing" constant="-16" id="C2i-Za-zWP"/>
-                            <constraint firstAttribute="trailing" secondItem="JeT-sh-ZcA" secondAttribute="trailing" constant="16" id="Da3-dC-MDC"/>
-                            <constraint firstItem="qxg-TU-UyQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="TPB-Tr-BCD"/>
-                            <constraint firstAttribute="trailing" secondItem="MW4-ie-EDm" secondAttribute="trailing" constant="9" id="Xjt-7r-ngg"/>
+                            <constraint firstItem="qxg-TU-UyQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Jn7-fl-YVy"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="pav-De-bLN" secondAttribute="bottom" id="ZLp-CS-3Ua"/>
-                            <constraint firstItem="pav-De-bLN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="dol-Xk-eFl"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JeT-sh-ZcA" secondAttribute="bottom" constant="317" id="iDv-nj-nYh"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="qxg-TU-UyQ" secondAttribute="bottom" constant="316" id="jw2-HH-HPr"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="MW4-ie-EDm" secondAttribute="bottom" constant="316" id="khO-4j-v7h"/>
-                            <constraint firstItem="MW4-ie-EDm" firstAttribute="leading" secondItem="HJP-fO-mVC" secondAttribute="trailing" constant="62" id="obk-g4-eiN"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HJP-fO-mVC" secondAttribute="bottom" constant="316" id="tzL-3G-eVg"/>
+                            <constraint firstAttribute="trailing" secondItem="pav-De-bLN" secondAttribute="trailing" id="axe-qg-xkB"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JeT-sh-ZcA" secondAttribute="bottom" constant="330" id="dBM-Os-zra"/>
+                            <constraint firstItem="JeT-sh-ZcA" firstAttribute="top" secondItem="qxg-TU-UyQ" secondAttribute="top" id="dQp-dl-GFD"/>
+                            <constraint firstItem="pav-De-bLN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="rqE-GS-Oc1"/>
+                            <constraint firstItem="JeT-sh-ZcA" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="zYv-P3-RCD"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Sdo-ep-TDZ"/>
                     <connections>
-                        <segue destination="UpR-lI-5Po" kind="show" id="UZM-Hv-BIi"/>
+                        <outlet property="homeScreenImage" destination="pav-De-bLN" id="IQT-qN-6I2"/>
+                        <outlet property="userOneBubble" destination="qxg-TU-UyQ" id="uhp-Y5-VPV"/>
+                        <outlet property="userTwoBubble" destination="JeT-sh-ZcA" id="Bnl-x9-yRS"/>
+                        <segue destination="wCD-wY-Jms" kind="show" identifier="PickGenres" id="VJa-At-cbk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32.799999999999997" y="37.331334332833585"/>
+            <point key="canvasLocation" x="792.79999999999995" y="52.623688155922046"/>
         </scene>
         <!--Choose 3 Genres-->
         <scene sceneID="Rmq-ip-NyV">
             <objects>
                 <tableViewController id="wCD-wY-Jms" customClass="SelectionViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="MYN-8C-UIB">
+                    <tableView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="MYN-8C-UIB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="87K-M2-NMW">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GenreCell" id="87K-M2-NMW" customClass="GenreCell">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="87K-M2-NMW" id="KRk-Pj-k0z">
@@ -104,10 +100,18 @@
                     <navigationItem key="navigationItem" title="Choose 3 Genres" id="ehD-68-hl5">
                         <barButtonItem key="backBarButtonItem" title="Back" id="IEQ-Zh-R2c"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="doneButton" destination="nky-Yj-K2W" id="fCU-Sr-IdS"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FOe-wy-HpV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem systemItem="done" id="nky-Yj-K2W">
+                    <connections>
+                        <action selector="storeGenrePreferences:" destination="wCD-wY-Jms" id="sss-0z-KWY"/>
+                    </connections>
+                </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="1370" y="36"/>
+            <point key="canvasLocation" x="1466" y="53"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ptc-hj-ywm">
@@ -118,12 +122,15 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="wCD-wY-Jms" kind="relationship" relationship="rootViewController" id="9Xv-wL-DFO"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="K4U-3C-hh3"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5lE-on-v2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="708" y="36"/>
+            <point key="canvasLocation" x="121" y="53"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bubble-empty.png" width="123" height="97"/>
+    </resources>
 </document>

@@ -7,12 +7,24 @@
 //
 
 #import "SelectionViewController.h"
+#import "ViewController.h"
 
 @interface SelectionViewController ()
+@property (nonatomic, strong) MDBEndpoint *endpoint;
+@property (nonatomic, strong) MDBClient *mdbClient;
+
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property (nonatomic, strong) UIBarButtonItem *nextButton;
+
+@property (nonatomic, strong) NSMutableArray *genreList;
+@property (nonatomic, strong) NSMutableSet *selectedRows;
+@property (nonatomic, strong) NSMutableSet *selectedGenres;
+
 
 @end
 
 @implementation SelectionViewController
+static NSString * const reuseIdentifier = @"GenreCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,7 +34,29 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.navigationItem.rightBarButtonItem = self.doneButton;
+    
+    self.tableView.allowsMultipleSelection = YES;
+    self.mdbClient = [MDBClient new];
+    
+    // Holds the index paths of the selected rows
+    self.selectedRows = [NSMutableSet new];
+
+    // Holds the correspnding cell title text for each selected row
+    self.selectedGenres = [NSMutableSet new];
+    
+    // The list of genres displayed when the view loads
+    self.genreList = [NSMutableArray array];
+    
+    [self listGenres];
+    
+    
+    
 }
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -32,24 +66,61 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+
+    return self.genreList.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    GenreCell *cell = [tableView dequeueReusableCellWithIdentifier: reuseIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
     
+    cell.textLabel.text = self.genreList[indexPath.row];
+    
     return cell;
 }
-*/
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    GenreCell *selectedCell = [GenreCell new];
+    selectedCell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    [self.selectedGenres addObject:selectedCell.textLabel.text];
+
+    NSLog(@"%@", self.selectedGenres);
+    
+}
+
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    GenreCell *selectedCell = [GenreCell new];
+    selectedCell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    if (self.tableView.indexPathsForSelectedRows.count == 3) {
+        return nil;
+    } else {
+        return indexPath;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    GenreCell *deselectedCell = [GenreCell new];
+    deselectedCell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    [self.selectedGenres removeObject:deselectedCell.textLabel.text];
+    NSLog(@"%@", self.selectedGenres);
+    
+    if (self.tableView.indexPathsForSelectedRows.count == 3){
+        self.tableView.allowsSelection = YES;
+    }
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -85,7 +156,7 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -93,6 +164,61 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
+
+// MARK: Genre Tableview
+-(void)listGenres{
+    
+    
+    [self.mdbClient fetchGenres:^(NSArray *genres) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.genreList addObjectsFromArray:genres];
+            [self.tableView reloadData];
+        });
+    }];
+    
+    //    return tempGenreList;
+}
+
+// MARK: Recomendations Compiler
+
+-(void) addSelections {
+    
+}
+
+//-(void) storeGenrePreferences {
+//    
+//    ViewController *homeScreen = [ViewController new];
+//    // Access the root view controller to pass along movie preferences without segue
+//    homeScreen = self.navigationController.viewControllers[0];
+//    
+//    homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
+//    
+//}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    if ([viewController isEqual:self.navigationController.viewControllers[0]]){
+        NSLog(@"Moving to the root viewcontroller!");
+    }
+}
+- (IBAction)storeGenrePreferences:(id)sender {
+    
+    ViewController *homeScreen = [ViewController new];
+    // Access the root view controller to pass along movie preferences without segue
+    homeScreen = self.navigationController.viewControllers[0];
+    
+    homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
+    
+    // FIXME: the bubble images should change depending on which bubble was pressed to get to this viewController
+    if (self.userSender.tag == 1){
+        homeScreen.userOneBubble.imageView.image = [UIImage imageNamed:@"bubble-selected.png"];
+    } else {
+        homeScreen.userTwoBubble.imageView.image = [UIImage imageNamed:@"bubble-selected.png"];
+    }
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+}
+
 
 @end

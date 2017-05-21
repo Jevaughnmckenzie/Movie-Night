@@ -9,42 +9,34 @@
 #import "ViewController.h"
 #import "HomeScreen.h"
 
-enum phoneType{
-    iPhone4, 
-    iPhone5,
-    iPhone6,
-    iPhone7
-};
-
 
 
 @interface ViewController ()
+@property (nonatomic, strong) MDBClient *mdbClient;
+@property (nonatomic, strong) NSArray *genreList;
 
 @end
 
 @implementation ViewController
 
+-(void)setMdbClient:(MDBClient *)mdbClient{
+    
+    _mdbClient = mdbClient;
+    
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    
-    
-    
-//    UIImage *image = [[UIImage alloc] initWithContentsOfFile:imageFile];
-//    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-//    imageView.frame = self.view.bounds;
-//    [self.view addSubview:imageView];
     [self setMainPageViews];
-    [_homeScreen getPhoneType:self.view.frame.size.width andHeight:self.view.frame.size.height];
-    [_homeScreen setHomeScreenImage:_homeScreen.currentPhoneSize];
+    self.suggestionsCompiler = [MDBMovieSuggestionsCompiler new];
     
-    _mdbClient = [[MDBClient alloc]init];
-    
-    [_mdbClient fetchGenres];
-    
-    
+    NSLog(@"%@", self.suggestionsCompiler.userOnePreferredGeneres);
 }
+
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -54,13 +46,20 @@ enum phoneType{
 
 -(void)setMainPageViews{
     
-    self.homeScreen = [[HomeScreen alloc] initWithFrame:self.view.frame];
-    [self.view addSubview:_homeScreen];
+    [self.homeScreenImage getPhoneType:self.view.frame.size.width andHeight:self.view.frame.size.height];
+    [self.homeScreenImage setHomeScreenImage:self.homeScreenImage.currentPhoneSize];
+}
+
+-(IBAction)selectPreferences:(id)sender{
+    
+    [self performSegueWithIdentifier:@"PickGenres" sender:sender];
     
 }
 
-
-
-
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    SelectionViewController *controller = [segue destinationViewController];
+    controller.userSender = sender;
+}
 
 @end

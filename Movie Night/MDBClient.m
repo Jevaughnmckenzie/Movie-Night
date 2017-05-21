@@ -10,19 +10,44 @@
 
 @implementation MDBClient
 
--(void) fetchGenres{
-    NSURLSession *session = [NSURLSession sessionWithConfiguration: [NSURLSessionConfiguration defaultSessionConfiguration]];
+
+-(instancetype)init{
+    self = [super init];
     
-    NSString *urlString = @"https://api.themoviedb.org/3/genre/movie/list?api_key=6fceaf9e1e4b8cd45f44340c8798a4b1&language=en-US";
+    _genres = [NSMutableArray array];
+    _endpoint = [MDBEndpoint new];
     
-    NSURL *url = [NSURL URLWithString:urlString];
-    
-    [[session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSData *jsonData = [[NSData alloc] initWithContentsOfURL:url];
-        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
-        NSLog(@"resoonse dictionary: %@", jsonDict);
-    }]resume];
-    
+    return self;
 }
 
+-(void) fetchGenres: (void (^)(NSArray*))completion{
+    NSURLSession *session = [NSURLSession sessionWithConfiguration: [NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+//    NSString *urlString = [NSString stringWithFormat:@"%@", self.endpoint.urlString ];
+//    
+    NSURL *url = [self.endpoint genreListEndpoint];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url
+                                             cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                         timeoutInterval:60];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                        completionHandler:^(NSData * _Nullable data,
+                                                            NSURLResponse * _Nullable response,
+                                                            NSError * _Nullable error) {
+        NSData *jsonData = [[NSData alloc] initWithContentsOfURL:url];
+        self.jsonGenresDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
+        NSLog(@"resoonse dictionary: %@", _jsonGenresDict);
+        
+        [self.genres addObjectsFromArray:[self.jsonGenresDict valueForKeyPath:@"genres.name"]];
+        completion(self.genres);
+    
+        
+        
+    }];
+    
+    [task resume];
+}
+
+-(void)displayGenres{
+    
+}
 @end

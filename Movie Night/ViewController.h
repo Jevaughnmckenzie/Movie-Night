@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MDBClient.h"
+#import "MDBMovieSuggestionsCompiler.h"
+#import "SelectionViewController.h"
+
 
 @class HomeScreen;
 
@@ -15,8 +18,15 @@
 @interface ViewController : UIViewController
 
 @property (nonatomic, strong) NSArray *currentPhoneSize;
-@property (nonatomic, retain) HomeScreen *homeScreen;
-@property (nonatomic, retain) MDBClient *mdbClient;
+//@property (nonatomic, strong) HomeScreen *homeScreen;
+@property (weak, nonatomic) IBOutlet HomeScreen *homeScreenImage;
+@property (weak, nonatomic) IBOutlet UIButton *userOneBubble;
+@property (weak, nonatomic) IBOutlet UIButton *userTwoBubble;
+
+@property (nonatomic, strong) MDBMovieSuggestionsCompiler *suggestionsCompiler;
+
+- (IBAction)selectPreferences:(id)sender;
+
 
 
 @end

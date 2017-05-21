@@ -7,10 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MDBEndpoint.h"
 
 @interface MDBClient : NSObject
 
+@property (nonatomic, strong) MDBEndpoint *endpoint;
+@property (nonatomic, strong) NSDictionary *jsonGenresDict;
+@property (nonatomic, strong) NSMutableArray *genres;
 
--(void) fetchGenres;
+-(void) fetchGenres: (void (^)(NSArray*))completion;
+//-(void) fetchMovieThumbnails;
+//-(void) fetchActors;
 
 @end

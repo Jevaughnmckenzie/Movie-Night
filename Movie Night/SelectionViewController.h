@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GenreCell.h"
+#import "MDBClient.h"
+#import "MDBMovieSuggestionsCompiler.h"
+
+@class ViewController;
 
 @interface SelectionViewController : UITableViewController
+
+@property (nonatomic, strong) UIButton *userSender;
+
 
 @end

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface GenreCell : UITableViewCell
+
+@property (nonatomic) NSString *genreTitle;
 
 @end

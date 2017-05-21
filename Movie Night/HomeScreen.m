@@ -28,14 +28,6 @@ static const int I_PHONE_7_PLUS_HEIGHT = 736;
 }
 */
 
--(id)init{
-    if (self){
-        
-    }
-    
-    return self;
-}
-
 -(void)getPhoneType: (int) width andHeight:(int)height{
     
     // Arrays consist of the width and height dimensions in that order
