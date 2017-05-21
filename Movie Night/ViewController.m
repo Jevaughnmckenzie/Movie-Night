@@ -56,10 +56,22 @@
     
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+- (IBAction)viewResults:(id)sender {
     
-    SelectionViewController *controller = [segue destinationViewController];
-    controller.userSender = sender;
+    [self performSegueWithIdentifier:@"ShowResults" sender:sender];
+    
+}
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    UIButton *buttonSender = sender;
+    if (buttonSender.tag == 0){
+//       ResultsController *controller = [segue destinationViewController];
+    } else{
+        SelectionViewController *controller = [segue destinationViewController];
+        controller.userSender = sender;
+    }
+    
 }
 
 @end

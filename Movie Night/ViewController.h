@@ -10,6 +10,7 @@
 #import "MDBClient.h"
 #import "MDBMovieSuggestionsCompiler.h"
 #import "SelectionViewController.h"
+#import "ResultsController.h"
 
 
 @class HomeScreen;

@@ -49,15 +49,32 @@
                                     <action selector="selectPreferences:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t0s-hD-ymo"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYO-UK-BCn">
+                                <rect key="frame" x="24" y="572" width="327" height="80"/>
+                                <color key="backgroundColor" red="0.69646256345177671" green="0.11802214030952753" blue="0.1235237522461429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="oG5-qq-1VR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="29"/>
+                                <state key="normal" title="View Results">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="viewResults:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1mP-XR-ptn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="pav-De-bLN" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="0Mo-gt-VFa"/>
                             <constraint firstItem="qxg-TU-UyQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Jn7-fl-YVy"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="gYO-UK-BCn" secondAttribute="bottom" constant="15" id="W0d-bT-Wt5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gYO-UK-BCn" secondAttribute="trailing" constant="8" id="YE0-Kg-cHv"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="pav-De-bLN" secondAttribute="bottom" id="ZLp-CS-3Ua"/>
                             <constraint firstAttribute="trailing" secondItem="pav-De-bLN" secondAttribute="trailing" id="axe-qg-xkB"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JeT-sh-ZcA" secondAttribute="bottom" constant="330" id="dBM-Os-zra"/>
                             <constraint firstItem="JeT-sh-ZcA" firstAttribute="top" secondItem="qxg-TU-UyQ" secondAttribute="top" id="dQp-dl-GFD"/>
+                            <constraint firstItem="gYO-UK-BCn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="dgZ-9J-GH5"/>
                             <constraint firstItem="pav-De-bLN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="rqE-GS-Oc1"/>
                             <constraint firstItem="JeT-sh-ZcA" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="zYv-P3-RCD"/>
                         </constraints>
@@ -68,11 +85,43 @@
                         <outlet property="userOneBubble" destination="qxg-TU-UyQ" id="uhp-Y5-VPV"/>
                         <outlet property="userTwoBubble" destination="JeT-sh-ZcA" id="Bnl-x9-yRS"/>
                         <segue destination="wCD-wY-Jms" kind="show" identifier="PickGenres" id="VJa-At-cbk"/>
+                        <segue destination="P26-0L-8pS" kind="show" identifier="ShowResults" id="Vjk-y8-mBa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="792.79999999999995" y="52.623688155922046"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="n10-1O-p9m">
+            <objects>
+                <tableViewController id="P26-0L-8pS" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="VnF-hY-hBY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hVi-B7-pt8">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hVi-B7-pt8" id="39x-3c-Y3l">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="P26-0L-8pS" id="ibt-Dd-kVf"/>
+                            <outlet property="delegate" destination="P26-0L-8pS" id="Xrm-rt-046"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="7mF-nd-XUY">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="BTm-pU-BPs"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xME-1l-1aj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="793" y="745"/>
         </scene>
         <!--Choose 3 Genres-->
         <scene sceneID="Rmq-ip-NyV">

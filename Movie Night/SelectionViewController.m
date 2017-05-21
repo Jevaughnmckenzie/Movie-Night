@@ -180,39 +180,25 @@ static NSString * const reuseIdentifier = @"GenreCell";
     //    return tempGenreList;
 }
 
-// MARK: Recomendations Compiler
-
--(void) addSelections {
-    
-}
-
-//-(void) storeGenrePreferences {
-//    
-//    ViewController *homeScreen = [ViewController new];
-//    // Access the root view controller to pass along movie preferences without segue
-//    homeScreen = self.navigationController.viewControllers[0];
-//    
-//    homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
-//    
-//}
-
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if ([viewController isEqual:self.navigationController.viewControllers[0]]){
         NSLog(@"Moving to the root viewcontroller!");
     }
 }
+
+// MARK: Recomendations Compiler
 - (IBAction)storeGenrePreferences:(id)sender {
     
     ViewController *homeScreen = [ViewController new];
     // Access the root view controller to pass along movie preferences without segue
     homeScreen = self.navigationController.viewControllers[0];
     
-    homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
-    
     // FIXME: the bubble images should change depending on which bubble was pressed to get to this viewController
     if (self.userSender.tag == 1){
+        homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
         homeScreen.userOneBubble.imageView.image = [UIImage imageNamed:@"bubble-selected.png"];
     } else {
+        homeScreen.suggestionsCompiler.userTwoPreferredGeneres = self.selectedGenres;
         homeScreen.userTwoBubble.imageView.image = [UIImage imageNamed:@"bubble-selected.png"];
     }
     

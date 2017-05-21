@@ -24,6 +24,7 @@
 		A8451A521EC9EB0C003FE223 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A511EC9EB0C003FE223 /* MovieCell.m */; };
 		A8451A551EC9EB5F003FE223 /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A541EC9EB5F003FE223 /* SelectionViewController.m */; };
 		A8451A581ECA287E003FE223 /* MDBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A571ECA287E003FE223 /* MDBClient.m */; };
+		A874481E1ED123B600F994D8 /* ResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A874481D1ED123B600F994D8 /* ResultsController.m */; };
 		A8B038491ECD3EC400290BA6 /* MDBEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = A8B038481ECD3EC400290BA6 /* MDBEndpoint.m */; };
 		A8B038501ECE44D400290BA6 /* bubble-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = A8B0384A1ECE44D400290BA6 /* bubble-empty.png */; };
 		A8B038511ECE44D400290BA6 /* bubble-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8B0384B1ECE44D400290BA6 /* bubble-empty@2x.png */; };
@@ -64,6 +65,8 @@
 		A8451A541EC9EB5F003FE223 /* SelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionViewController.m; sourceTree = "<group>"; };
 		A8451A561ECA287E003FE223 /* MDBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBClient.h; sourceTree = "<group>"; };
 		A8451A571ECA287E003FE223 /* MDBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBClient.m; sourceTree = "<group>"; };
+		A874481C1ED123B600F994D8 /* ResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsController.h; sourceTree = "<group>"; };
+		A874481D1ED123B600F994D8 /* ResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsController.m; sourceTree = "<group>"; };
 		A8B038471ECD3EC400290BA6 /* MDBEndpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBEndpoint.h; sourceTree = "<group>"; };
 		A8B038481ECD3EC400290BA6 /* MDBEndpoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBEndpoint.m; sourceTree = "<group>"; };
 		A8B0384A1ECE44D400290BA6 /* bubble-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-empty.png"; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 				A8451A481EC93B22003FE223 /* HomeScreen.m */,
 				A8451A531EC9EB5F003FE223 /* SelectionViewController.h */,
 				A8451A541EC9EB5F003FE223 /* SelectionViewController.m */,
+				A874481C1ED123B600F994D8 /* ResultsController.h */,
+				A874481D1ED123B600F994D8 /* ResultsController.m */,
 				A8451A4D1EC9EAF9003FE223 /* GenreCell.h */,
 				A8451A4E1EC9EAF9003FE223 /* GenreCell.m */,
 				A8451A501EC9EB0C003FE223 /* MovieCell.h */,
@@ -254,6 +259,7 @@
 				A8B038581ECFBF6500290BA6 /* MDBMovieSuggestionsCompiler.m in Sources */,
 				A8451A381EC8F4DD003FE223 /* Movie.m in Sources */,
 				A8451A521EC9EB0C003FE223 /* MovieCell.m in Sources */,
+				A874481E1ED123B600F994D8 /* ResultsController.m in Sources */,
 				A8451A4F1EC9EAF9003FE223 /* GenreCell.m in Sources */,
 				A8451A491EC93B22003FE223 /* HomeScreen.m in Sources */,
 				A8451A211EC8F4BB003FE223 /* main.m in Sources */,
