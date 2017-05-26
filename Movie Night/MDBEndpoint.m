@@ -26,14 +26,36 @@ static NSString *const API_KEY = @"6fceaf9e1e4b8cd45f44340c8798a4b1";
 
 -(NSURL*)genreListEndpoint{
     
-    NSURLComponents *urlComponents = [NSURLComponents new];
+    self.urlComponents = [NSURLComponents new];
     
-    urlComponents.scheme = URL_PROTOCOL;
-    urlComponents.host = self.baseURL;
-    urlComponents.path = @"/3/genre/movie/list";
-    urlComponents.queryItems = @[self.apiKey];
+    self.urlComponents.scheme = URL_PROTOCOL;
+    self.urlComponents.host = self.baseURL;
+    self.urlComponents.path = @"/3/genre/movie/list";
+    self.urlComponents.queryItems = @[self.apiKey];
     
-    return urlComponents.URL;
+    [self setUrl:self.urlComponents.URL];
+    [self setRequest:[NSURLRequest requestWithURL:self.url]];
+    
+    return self.urlComponents.URL;
+    
+    
+    
+}
+
+-(void)setUrlComponents:(NSURLComponents *)urlComponents{
+    _urlComponents = urlComponents;
+}
+
+-(void)setUrl:(NSURL *)url{
+    
+    _url = url;
+    
+}
+
+-(void)setRequest:(NSURLRequest *)request{
+    
+    _request = request;
+    
     
 }
 

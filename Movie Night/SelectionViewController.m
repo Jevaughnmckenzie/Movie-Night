@@ -169,8 +169,11 @@ static NSString * const reuseIdentifier = @"GenreCell";
 // MARK: Genre Tableview
 -(void)listGenres{
     
+    self.endpoint = [MDBEndpoint new];
     
-    [self.mdbClient fetchGenres:^(NSArray *genres) {
+    [self.endpoint genreListEndpoint];
+
+    [self.mdbClient fetchGenres:self.endpoint completion:^(NSArray *genres) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.genreList addObjectsFromArray:genres];
             [self.tableView reloadData];

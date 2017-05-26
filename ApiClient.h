@@ -10,7 +10,7 @@
 
 @protocol ApiClient <NSObject>
 
-@property (nonatomic) NSURLSession;
+@property (nonatomic) NSURLSession *session;
 @property (nonatomic) NSURLSessionConfiguration;
 
 

@@ -20,6 +20,9 @@
 @property (nonatomic, readonly) NSMutableDictionary *queryString;
 @property (nonatomic, readonly) NSString *urlString;
 @property (nonatomic, readonly) NSURLQueryItem *apiKey;
+@property (nonatomic) NSURLComponents *urlComponents;
+@property (nonatomic, readonly) NSURL *url;
+@property (nonatomic, readonly) NSURLRequest *request;
 
 -(NSURL*)genreListEndpoint;
 @end

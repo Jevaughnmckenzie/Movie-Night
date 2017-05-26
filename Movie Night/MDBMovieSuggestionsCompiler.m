@@ -22,6 +22,16 @@
     return self;
 }
 
-
+/*
+ 
+ give level one preference to genres listed in both genre sets. 
+ give level two preference to the other genres listed. 
+ 
+ do the same for actors in both sets
+ 
+ within the level one genre results, seacrch for level one actors, then search for level two actors
+ repeat for level two genre results
+ 
+ */
 
 @end

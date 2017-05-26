@@ -15,7 +15,10 @@
 @property (nonatomic, strong) NSDictionary *jsonGenresDict;
 @property (nonatomic, strong) NSMutableArray *genres;
 
--(void) fetchGenres: (void (^)(NSArray*))completion;
+
+-(NSURLSessionDataTask*)jsonTaskWithRequest:(NSURLRequest*)urlRequest completion:(void(^)(NSDictionary*, NSHTTPURLResponse*, NSError*))completion;
+-(void)fetch:(MDBEndpoint*)endpoint parse:(void(^)(NSDictionary*))jsonData;
+-(void) fetchGenres:(MDBEndpoint*)endpoint completion:(void (^)(NSArray*))completion;
 //-(void) fetchMovieThumbnails;
 //-(void) fetchActors;
 
