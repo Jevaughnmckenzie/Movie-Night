@@ -53,8 +53,6 @@ const int ResourceNotFound = 40;
                                                             @try {
                                                                 NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
                                                                 completion(json, HTTPResponse, nil);
-                                                            } @catch (NSError *error) {
-                                                                completion(nil, HTTPResponse, error);
                                                             } @catch (NSException *exception) {
                                                                 NSLog(@"Exception thrown: %@", exception);
                                                             } @finally {
@@ -99,20 +97,30 @@ const int ResourceNotFound = 40;
     return task;
 }
 
--(void)fetch:(MDBEndpoint*)endpoint parse:(void(^)(NSDictionary*))jsonData {
+-(void)fetch:(MDBEndpoint*)endpoint parse:(void(^)(NSDictionary*, NSError*))jsonData {
     NSURLRequest *request = endpoint.request;
     NSURLSessionDataTask *task = [self jsonTaskWithRequest:request completion:^(NSDictionary *json,
                                                                                 NSHTTPURLResponse *response,
                                                                                 NSError *error) {
+        
         if (json == nil) {
             NSLog(@"The network request did not deliver the JSON correctly");
             NSLog(@"Error message: %@", error);
             return;
         } else if ((response.statusCode == 401) || (response.statusCode == 404)){
+            
+            if (response.statusCode == 401) {
+                NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSString localizedStringWithFormat:@"Incorrect or invalid API key"] forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:MDBNetworkingErrorDomain code:InvalidAPIKey userInfo:userInfo];
+            } else if (response.statusCode == 404){
+                NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSString localizedStringWithFormat:@"Invalid URL"] forKey:NSLocalizedDescriptionKey];
+                error = [NSError errorWithDomain:MDBNetworkingErrorDomain code:ResourceNotFound userInfo:userInfo];
+            }
+            
             NSLog(@"%@", [json valueForKey:@"status_message"]);
-        } else {
-           jsonData(json);
         }
+        
+           jsonData(json, error);
         
         
     }];
@@ -120,8 +128,10 @@ const int ResourceNotFound = 40;
     [task resume];
 }
 
++(void)displayAlert{
+}
 
--(void) fetchGenres:(MDBEndpoint*)endpoint completion:(void (^)(NSArray*))completion{
+-(void) fetchGenres:(MDBEndpoint*)endpoint completion:(void (^)(NSArray*, NSError*))completion{
 //    NSURLSession *session = [NSURLSession sessionWithConfiguration: [NSURLSessionConfiguration defaultSessionConfiguration]];
 //    
 //    NSString *urlString = [NSString stringWithFormat:@"%@", self.endpoint.urlString ];
@@ -138,10 +148,10 @@ const int ResourceNotFound = 40;
 //        self.jsonGenresDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
 //        NSLog(@"resoonse dictionary: %@", self.jsonGenresDict);
     
-    [self fetch:endpoint parse:^void(NSDictionary *json) {
+    [self fetch:endpoint parse:^void(NSDictionary *json, NSError *error) {
         NSArray *genres = [json valueForKeyPath:@"genres.name"];
         
-        completion(genres);
+        completion(genres, error);
     }];
 }
 

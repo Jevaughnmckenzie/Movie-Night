@@ -17,8 +17,8 @@
 
 
 -(NSURLSessionDataTask*)jsonTaskWithRequest:(NSURLRequest*)urlRequest completion:(void(^)(NSDictionary*, NSHTTPURLResponse*, NSError*))completion;
--(void)fetch:(MDBEndpoint*)endpoint parse:(void(^)(NSDictionary*))jsonData;
--(void) fetchGenres:(MDBEndpoint*)endpoint completion:(void (^)(NSArray*))completion;
+-(void)fetch:(MDBEndpoint*)endpoint parse:(void(^)(NSDictionary*, NSError*))jsonData;
+-(void) fetchGenres:(MDBEndpoint*)endpoint completion:(void (^)(NSArray*, NSError*))completion;
 //-(void) fetchMovieThumbnails;
 //-(void) fetchActors;
 

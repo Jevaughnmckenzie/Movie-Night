@@ -173,12 +173,22 @@ static NSString * const reuseIdentifier = @"GenreCell";
     
     [self.endpoint genreListEndpoint];
 
-    [self.mdbClient fetchGenres:self.endpoint completion:^(NSArray *genres) {
+    [self.mdbClient fetchGenres:self.endpoint completion:^(NSArray *genres, NSError* error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.genreList addObjectsFromArray:genres];
             [self.tableView reloadData];
+            
+            if (error != nil ){
+                UIAlertController *loadingGenresAlert = [UIAlertController alertControllerWithTitle:error.localizedDescription message:@"Please contact Jevaughn McKenzie to deal with this issue." preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+                
+                [loadingGenresAlert addAction:okButton];
+                [self presentViewController:loadingGenresAlert animated:YES completion:nil];
+            }
         });
     }];
+    
     
     //    return tempGenreList;
 }

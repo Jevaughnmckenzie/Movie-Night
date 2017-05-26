@@ -14,11 +14,17 @@ static NSString *const URL_PROTOCOL = @"https";
 static NSString *const BASIC_BASE_URL = @"api.themoviedb.org";
 static NSString *const API_KEY = @"6fceaf9e1e4b8cd45f44340c8798a4b1";
 
+-(void)setUrl:(NSURL *)url{
+    _url = url;
+}
+
+-(void)setRequest:(NSURLRequest *)request{
+    _request = request;
+}
 
 -(NSString*)baseURL{
     return BASIC_BASE_URL;
 }
-
 
 -(NSURLQueryItem*)apiKey{
     return [NSURLQueryItem queryItemWithName:@"api_key" value:API_KEY];
@@ -38,23 +44,6 @@ static NSString *const API_KEY = @"6fceaf9e1e4b8cd45f44340c8798a4b1";
     
     return self.urlComponents.URL;
     
-    
-    
-}
-
--(void)setUrlComponents:(NSURLComponents *)urlComponents{
-    _urlComponents = urlComponents;
-}
-
--(void)setUrl:(NSURL *)url{
-    
-    _url = url;
-    
-}
-
--(void)setRequest:(NSURLRequest *)request{
-    
-    _request = request;
     
     
 }
