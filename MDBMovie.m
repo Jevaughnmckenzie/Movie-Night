@@ -6,9 +6,9 @@
 //  Copyright © 2017 Jevaughn McKenzie. All rights reserved.
 //
 
-#import "Movie.h"
+#import "MDBMovie.h"
 
-@implementation Movie
+@implementation MDBMovie
 
 /*
 // Only override drawRect: if you perform custom drawing.

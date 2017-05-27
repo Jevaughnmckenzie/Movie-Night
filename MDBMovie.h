@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Movie : UIView
+@interface MDBMovie : UIView
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *releaseDate;

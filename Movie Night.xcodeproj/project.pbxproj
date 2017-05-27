@@ -13,7 +13,7 @@
 		A8451A2A1EC8F4BB003FE223 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8451A281EC8F4BB003FE223 /* Main.storyboard */; };
 		A8451A2C1EC8F4BB003FE223 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8451A2B1EC8F4BB003FE223 /* Assets.xcassets */; };
 		A8451A2F1EC8F4BB003FE223 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8451A2D1EC8F4BB003FE223 /* LaunchScreen.storyboard */; };
-		A8451A381EC8F4DD003FE223 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A371EC8F4DD003FE223 /* Movie.m */; };
+		A8451A381EC8F4DD003FE223 /* MDBMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A371EC8F4DD003FE223 /* MDBMovie.m */; };
 		A8451A411EC90ED1003FE223 /* bg-iphone4.png in Resources */ = {isa = PBXBuildFile; fileRef = A8451A3D1EC90ED1003FE223 /* bg-iphone4.png */; };
 		A8451A421EC90ED1003FE223 /* bg-iphone5.png in Resources */ = {isa = PBXBuildFile; fileRef = A8451A3E1EC90ED1003FE223 /* bg-iphone5.png */; };
 		A8451A431EC90ED1003FE223 /* bg-iphone6.png in Resources */ = {isa = PBXBuildFile; fileRef = A8451A3F1EC90ED1003FE223 /* bg-iphone6.png */; };
@@ -21,7 +21,7 @@
 		A8451A461EC90F02003FE223 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = A8451A451EC90F02003FE223 /* iTunesArtwork.png */; };
 		A8451A491EC93B22003FE223 /* HomeScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A481EC93B22003FE223 /* HomeScreen.m */; };
 		A8451A4F1EC9EAF9003FE223 /* GenreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A4E1EC9EAF9003FE223 /* GenreCell.m */; };
-		A8451A521EC9EB0C003FE223 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A511EC9EB0C003FE223 /* MovieCell.m */; };
+		A8451A521EC9EB0C003FE223 /* MDBMovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A511EC9EB0C003FE223 /* MDBMovieCell.m */; };
 		A8451A551EC9EB5F003FE223 /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A541EC9EB5F003FE223 /* SelectionViewController.m */; };
 		A8451A581ECA287E003FE223 /* MDBClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A8451A571ECA287E003FE223 /* MDBClient.m */; };
 		A874481E1ED123B600F994D8 /* ResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A874481D1ED123B600F994D8 /* ResultsController.m */; };
@@ -46,8 +46,8 @@
 		A8451A2B1EC8F4BB003FE223 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A8451A2E1EC8F4BB003FE223 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A8451A301EC8F4BB003FE223 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A8451A361EC8F4DD003FE223 /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Movie.h; path = ../Movie.h; sourceTree = "<group>"; };
-		A8451A371EC8F4DD003FE223 /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Movie.m; path = ../Movie.m; sourceTree = "<group>"; };
+		A8451A361EC8F4DD003FE223 /* MDBMovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBMovie.h; path = ../MDBMovie.h; sourceTree = "<group>"; };
+		A8451A371EC8F4DD003FE223 /* MDBMovie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBMovie.m; path = ../MDBMovie.m; sourceTree = "<group>"; };
 		A8451A3D1EC90ED1003FE223 /* bg-iphone4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-iphone4.png"; sourceTree = "<group>"; };
 		A8451A3E1EC90ED1003FE223 /* bg-iphone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-iphone5.png"; sourceTree = "<group>"; };
 		A8451A3F1EC90ED1003FE223 /* bg-iphone6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-iphone6.png"; sourceTree = "<group>"; };
@@ -59,8 +59,8 @@
 		A8451A4C1EC9DB88003FE223 /* ApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ApiClient.h; path = ../ApiClient.h; sourceTree = "<group>"; };
 		A8451A4D1EC9EAF9003FE223 /* GenreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenreCell.h; path = ../GenreCell.h; sourceTree = "<group>"; };
 		A8451A4E1EC9EAF9003FE223 /* GenreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenreCell.m; path = ../GenreCell.m; sourceTree = "<group>"; };
-		A8451A501EC9EB0C003FE223 /* MovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MovieCell.h; path = ../MovieCell.h; sourceTree = "<group>"; };
-		A8451A511EC9EB0C003FE223 /* MovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MovieCell.m; path = ../MovieCell.m; sourceTree = "<group>"; };
+		A8451A501EC9EB0C003FE223 /* MDBMovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDBMovieCell.h; path = ../MDBMovieCell.h; sourceTree = "<group>"; };
+		A8451A511EC9EB0C003FE223 /* MDBMovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDBMovieCell.m; path = ../MDBMovieCell.m; sourceTree = "<group>"; };
 		A8451A531EC9EB5F003FE223 /* SelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionViewController.h; sourceTree = "<group>"; };
 		A8451A541EC9EB5F003FE223 /* SelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionViewController.m; sourceTree = "<group>"; };
 		A8451A561ECA287E003FE223 /* MDBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBClient.h; sourceTree = "<group>"; };
@@ -122,10 +122,10 @@
 				A874481D1ED123B600F994D8 /* ResultsController.m */,
 				A8451A4D1EC9EAF9003FE223 /* GenreCell.h */,
 				A8451A4E1EC9EAF9003FE223 /* GenreCell.m */,
-				A8451A501EC9EB0C003FE223 /* MovieCell.h */,
-				A8451A511EC9EB0C003FE223 /* MovieCell.m */,
-				A8451A361EC8F4DD003FE223 /* Movie.h */,
-				A8451A371EC8F4DD003FE223 /* Movie.m */,
+				A8451A501EC9EB0C003FE223 /* MDBMovieCell.h */,
+				A8451A511EC9EB0C003FE223 /* MDBMovieCell.m */,
+				A8451A361EC8F4DD003FE223 /* MDBMovie.h */,
+				A8451A371EC8F4DD003FE223 /* MDBMovie.m */,
 				A8451A4A1EC9DA9E003FE223 /* JSONDecodable.h */,
 				A8451A4C1EC9DB88003FE223 /* ApiClient.h */,
 				A8451A561ECA287E003FE223 /* MDBClient.h */,
@@ -257,8 +257,8 @@
 				A8451A551EC9EB5F003FE223 /* SelectionViewController.m in Sources */,
 				A8451A241EC8F4BB003FE223 /* AppDelegate.m in Sources */,
 				A8B038581ECFBF6500290BA6 /* MDBMovieSuggestionsCompiler.m in Sources */,
-				A8451A381EC8F4DD003FE223 /* Movie.m in Sources */,
-				A8451A521EC9EB0C003FE223 /* MovieCell.m in Sources */,
+				A8451A381EC8F4DD003FE223 /* MDBMovie.m in Sources */,
+				A8451A521EC9EB0C003FE223 /* MDBMovieCell.m in Sources */,
 				A874481E1ED123B600F994D8 /* ResultsController.m in Sources */,
 				A8451A4F1EC9EAF9003FE223 /* GenreCell.m in Sources */,
 				A8451A491EC93B22003FE223 /* HomeScreen.m in Sources */,

@@ -12,10 +12,12 @@
 
 @property (nonatomic) NSMutableSet *userOnePreferredGeneres;
 @property (nonatomic) NSMutableSet *userTwoPreferredGeneres;
+@property (nonatomic) NSMutableSet *levelOneGenres;
+@property (nonatomic) NSMutableSet *levelTwoGenres;
 @property (nonatomic) NSMutableArray *recommendedMovies;
 
 //-(void)compileMovieRecommendations;
 
-//-(void)
+-(void)prioritizeGenreSelections;
 
 @end

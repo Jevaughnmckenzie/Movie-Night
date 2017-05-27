@@ -10,18 +10,6 @@
 
 @implementation MDBMovieSuggestionsCompiler
 
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        _userOnePreferredGeneres = [NSMutableSet new];
-        _userTwoPreferredGeneres = [NSMutableSet new];
-        _recommendedMovies = [NSMutableArray new];
-    }
-    return self;
-}
-
 /*
  
  give level one preference to genres listed in both genre sets. 
@@ -33,5 +21,44 @@
  repeat for level two genre results
  
  */
+
+
+-(void)prioritizeGenreSelections{
+    
+    if ((self.userOnePreferredGeneres.count >= 1) && (self.userTwoPreferredGeneres.count >= 1)) {
+        
+        NSSet *mainUserGenreSelection = [NSMutableSet new];
+        NSSet *secondaryUserGenreSelection = [NSMutableSet new];
+        
+        if (self.userOnePreferredGeneres.count >= self.userTwoPreferredGeneres.count){
+            mainUserGenreSelection = self.userOnePreferredGeneres;
+            secondaryUserGenreSelection = self.userTwoPreferredGeneres;
+        } else {
+            mainUserGenreSelection = self.userTwoPreferredGeneres;
+            secondaryUserGenreSelection = self.userOnePreferredGeneres;
+        }
+        
+        [mainUserGenreSelection enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
+            [self.levelOneGenres addObject:[secondaryUserGenreSelection member:obj]];
+            
+            if (![self.levelOneGenres containsObject:obj]) {
+                [self.levelTwoGenres addObject:obj];
+            }
+            
+            for (int i = 0; i < secondaryUserGenreSelection.count; i++){
+                if (![self.levelOneGenres containsObject:secondaryUserGenreSelection.allObjects[i]]){
+                    [self.levelTwoGenres addObject:secondaryUserGenreSelection.allObjects[i]];
+                }
+            }
+            
+            
+        }];
+        
+        
+        
+        
+    }
+    NSLog(@"Level one genres: %@\nLevel Two genres: %@", self.levelOneGenres, self.levelTwoGenres);
+}
 
 @end

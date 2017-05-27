@@ -9,6 +9,11 @@
 #import "SelectionViewController.h"
 #import "ViewController.h"
 
+enum buttons{
+    userOneButton = 1,
+    userTwoButton = 2
+};
+
 @interface SelectionViewController ()
 @property (nonatomic, strong) MDBEndpoint *endpoint;
 @property (nonatomic, strong) MDBClient *mdbClient;
@@ -24,13 +29,16 @@
 @end
 
 @implementation SelectionViewController
+
+
 static NSString * const reuseIdentifier = @"GenreCell";
+static const int mainViewController = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+//     self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -38,16 +46,8 @@ static NSString * const reuseIdentifier = @"GenreCell";
     self.navigationItem.rightBarButtonItem = self.doneButton;
     
     self.tableView.allowsMultipleSelection = YES;
-    self.mdbClient = [MDBClient new];
     
-    // Holds the index paths of the selected rows
-    self.selectedRows = [NSMutableSet new];
-
-    // Holds the correspnding cell title text for each selected row
-    self.selectedGenres = [NSMutableSet new];
-    
-    // The list of genres displayed when the view loads
-    self.genreList = [NSMutableArray array];
+    [self initializeProperties];
     
     [self listGenres];
     
@@ -55,7 +55,21 @@ static NSString * const reuseIdentifier = @"GenreCell";
     
 }
 
-
+-(void)initializeProperties{
+        
+    // Handles all of the network requesting
+    self.mdbClient = [MDBClient new];
+    
+    // Holds the index paths of the selected rows
+    self.selectedRows = [NSMutableSet new];
+    
+    // Holds the correspnding cell title text for each selected row
+    self.selectedGenres = [NSMutableSet new];
+    
+    // The list of genres displayed when the view loads
+    self.genreList = [NSMutableArray array];
+        
+}
 
 
 - (void)didReceiveMemoryWarning {
@@ -202,12 +216,14 @@ static NSString * const reuseIdentifier = @"GenreCell";
 // MARK: Recomendations Compiler
 - (IBAction)storeGenrePreferences:(id)sender {
     
+    
+    
     ViewController *homeScreen = [ViewController new];
     // Access the root view controller to pass along movie preferences without segue
-    homeScreen = self.navigationController.viewControllers[0];
+    homeScreen = self.navigationController.viewControllers[mainViewController];
     
     // FIXME: the bubble images should change depending on which bubble was pressed to get to this viewController
-    if (self.userSender.tag == 1){
+    if (self.userSender.tag == userOneButton){
 //        homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
         homeScreen.userOneBubble.imageView.image = [UIImage imageNamed:@"bubble-selected.png"];
     } else {
@@ -217,9 +233,9 @@ static NSString * const reuseIdentifier = @"GenreCell";
     
     // Sends the selected genre information to the main screen. Will then be passed on to the ResultsController
     
-    if (self.userSender.tag == 1) {
+    if (self.userSender.tag == userOneButton) {
         homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
-    } else if (self.userSender.tag == 2){
+    } else if (self.userSender.tag == userTwoButton){
         homeScreen.suggestionsCompiler.userTwoPreferredGeneres = self.selectedGenres;
     }
     

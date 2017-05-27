@@ -6,9 +6,9 @@
 //  Copyright © 2017 Jevaughn McKenzie. All rights reserved.
 //
 
-#import "MovieCell.h"
+#import "MDBMovieCell.h"
 
-@implementation MovieCell
+@implementation MDBMovieCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

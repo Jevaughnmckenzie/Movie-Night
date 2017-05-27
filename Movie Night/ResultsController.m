@@ -10,6 +10,8 @@
 
 @interface ResultsController ()
 
+
+
 @end
 
 @implementation ResultsController
@@ -18,6 +20,8 @@
     [super viewDidLoad];
     
     NSLog(@"userOne genres: %@\nuserTwo genres: %@", self.movieSuggestions.userOnePreferredGeneres, self.movieSuggestions.userTwoPreferredGeneres);
+    
+    [self.movieSuggestions prioritizeGenreSelections];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -25,15 +29,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(instancetype)init{
-    self = [super init];
-    
-    if (self){
-        _movieSuggestions = [MDBMovieSuggestionsCompiler new];
-    }
-    
-    return self;
-}
 
 /*
 #pragma mark - Navigation
@@ -44,5 +39,9 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+
+
 
 @end

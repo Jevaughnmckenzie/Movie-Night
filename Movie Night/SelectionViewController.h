@@ -17,5 +17,4 @@
 
 @property (nonatomic, strong) UIButton *userSender;
 
-
 @end

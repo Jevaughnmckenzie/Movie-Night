@@ -17,29 +17,11 @@ enum SegueDestination {
 
 
 @interface ViewController ()
-@property (nonatomic, strong) MDBClient *mdbClient;
-@property (nonatomic, strong) NSArray *genreList;
 
 @end
 
 @implementation ViewController
 
--(void)setMdbClient:(MDBClient *)mdbClient{
-    
-    _mdbClient = mdbClient;
-    
-    
-}
-
-//-(instancetype)init{
-//    self = [super init];
-//    
-//    if (self){
-//        _suggestionsCompiler = [MDBMovieSuggestionsCompiler new];
-//    }
-//    
-//    return self;
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

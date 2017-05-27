@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MovieCell : UITableViewCell
+@interface MDBMovieCell : UITableViewCell
 
 @end

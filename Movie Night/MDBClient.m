@@ -19,7 +19,6 @@ const int ResourceNotFound = 40;
 -(instancetype)init{
     self = [super init];
     
-    _genres = [NSMutableArray array];
     _endpoint = [MDBEndpoint new];
     
     return self;
