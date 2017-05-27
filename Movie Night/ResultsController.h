@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MDBMovieSuggestionsCompiler.h"
 
-@interface ResultsController : UIViewController
+@class ViewController;
+
+@interface ResultsController : UITableViewController
+
+@property (nonatomic) MDBMovieSuggestionsCompiler *movieSuggestions;
 
 @end

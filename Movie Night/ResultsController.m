@@ -16,12 +16,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    NSLog(@"userOne genres: %@\nuserTwo genres: %@", self.movieSuggestions.userOnePreferredGeneres, self.movieSuggestions.userTwoPreferredGeneres);
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(instancetype)init{
+    self = [super init];
+    
+    if (self){
+        _movieSuggestions = [MDBMovieSuggestionsCompiler new];
+    }
+    
+    return self;
 }
 
 /*

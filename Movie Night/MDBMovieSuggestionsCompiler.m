@@ -17,7 +17,7 @@
     if (self) {
         _userOnePreferredGeneres = [NSMutableSet new];
         _userTwoPreferredGeneres = [NSMutableSet new];
-        _recommendedMovies = [NSMutableArray array];
+        _recommendedMovies = [NSMutableArray new];
     }
     return self;
 }

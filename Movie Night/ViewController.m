@@ -9,6 +9,11 @@
 #import "ViewController.h"
 #import "HomeScreen.h"
 
+enum SegueDestination {
+    showResults = 0,
+    pickUserOneGenres,
+    pickUSerTwoGenres
+};
 
 
 @interface ViewController ()
@@ -26,6 +31,16 @@
     
 }
 
+//-(instancetype)init{
+//    self = [super init];
+//    
+//    if (self){
+//        _suggestionsCompiler = [MDBMovieSuggestionsCompiler new];
+//    }
+//    
+//    return self;
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -35,6 +50,7 @@
     
     NSLog(@"%@", self.suggestionsCompiler.userOnePreferredGeneres);
 }
+
 
 
 
@@ -65,13 +81,27 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     UIButton *buttonSender = sender;
-    if (buttonSender.tag == 0){
-//       ResultsController *controller = [segue destinationViewController];
+    if (buttonSender.tag == showResults){
+        ResultsController *resultsController = [ResultsController new];
+        resultsController = [segue destinationViewController];
+        
+        
+        
+        __weak NSMutableSet *userOneSet = self.suggestionsCompiler.userOnePreferredGeneres;
+        __weak NSMutableSet *userTwoSet = self.suggestionsCompiler.userTwoPreferredGeneres;
+        
+        resultsController.movieSuggestions = [MDBMovieSuggestionsCompiler new];
+        
+        resultsController.movieSuggestions.userOnePreferredGeneres = userOneSet;
+        
+        resultsController.movieSuggestions.userTwoPreferredGeneres = userTwoSet;
+        
     } else{
         SelectionViewController *controller = [segue destinationViewController];
         controller.userSender = sender;
     }
     
 }
+//morjcql@gmail.com
 
 @end

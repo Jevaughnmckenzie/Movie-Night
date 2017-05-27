@@ -24,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *userOneBubble;
 @property (weak, nonatomic) IBOutlet UIButton *userTwoBubble;
 
-@property (nonatomic, strong) MDBMovieSuggestionsCompiler *suggestionsCompiler;
+@property (nonatomic) MDBMovieSuggestionsCompiler *suggestionsCompiler;
 
 - (IBAction)selectPreferences:(id)sender;
 

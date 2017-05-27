@@ -160,10 +160,10 @@ static NSString * const reuseIdentifier = @"GenreCell";
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    
+//    
+//}
 
 
 // MARK: Genre Tableview
@@ -208,12 +208,23 @@ static NSString * const reuseIdentifier = @"GenreCell";
     
     // FIXME: the bubble images should change depending on which bubble was pressed to get to this viewController
     if (self.userSender.tag == 1){
-        homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
+//        homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
         homeScreen.userOneBubble.imageView.image = [UIImage imageNamed:@"bubble-selected.png"];
     } else {
-        homeScreen.suggestionsCompiler.userTwoPreferredGeneres = self.selectedGenres;
+//        homeScreen.suggestionsCompiler.userTwoPreferredGeneres = self.selectedGenres;
         homeScreen.userTwoBubble.imageView.image = [UIImage imageNamed:@"bubble-selected.png"];
     }
+    
+    // Sends the selected genre information to the main screen. Will then be passed on to the ResultsController
+    
+    if (self.userSender.tag == 1) {
+        homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
+    } else if (self.userSender.tag == 2){
+        homeScreen.suggestionsCompiler.userTwoPreferredGeneres = self.selectedGenres;
+    }
+    
+    NSLog(@"%@", homeScreen.suggestionsCompiler.userOnePreferredGeneres);
+    NSLog(@"%@", homeScreen.suggestionsCompiler.userTwoPreferredGeneres);
     
     [self.navigationController popToRootViewControllerAnimated:YES];
     
