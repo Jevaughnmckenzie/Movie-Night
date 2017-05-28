@@ -27,11 +27,11 @@
     
     if ((self.userOnePreferredGeneres.count >= 1) && (self.userTwoPreferredGeneres.count >= 1)) {
         
-        NSSet *mainUserGenreSelection = [NSMutableSet new];
-        NSSet *secondaryUserGenreSelection = [NSMutableSet new];
+        NSMutableDictionary *mainUserGenreSelection = [NSMutableDictionary new];
+        NSMutableDictionary *secondaryUserGenreSelection = [NSMutableDictionary new];
         
-        self.levelOneGenres = [NSMutableSet set];
-        self.levelTwoGenres = [NSMutableSet set];
+        self.levelOneGenres = [NSMutableDictionary new];
+        self.levelTwoGenres = [NSMutableDictionary new];
         
         if (self.userOnePreferredGeneres.count >= self.userTwoPreferredGeneres.count){
             mainUserGenreSelection = self.userOnePreferredGeneres;
@@ -41,22 +41,22 @@
             secondaryUserGenreSelection = self.userOnePreferredGeneres;
         }
         
-        [mainUserGenreSelection enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
-            
-            if ([secondaryUserGenreSelection member:obj]){
-                NSString *mutualObject = [[NSString alloc]initWithString:obj];
-                [self.levelOneGenres addObject:mutualObject];
+        [mainUserGenreSelection enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            // Check to see if the two dictionaries have mutual key-value pairs
+            if ([secondaryUserGenreSelection valueForKey:key]){
+                [self.levelOneGenres setValue:obj forKey:key];
+            }else {
+                [self.levelTwoGenres setValue:obj forKey:key];
             }
-            
-            if (![self.levelOneGenres containsObject:obj]) {
-                [self.levelTwoGenres addObject:obj];
-            }
-            
         }];
         
+//        // Drians
         for (int i = 0; i < secondaryUserGenreSelection.count; i++){
-            if (![self.levelOneGenres containsObject:secondaryUserGenreSelection.allObjects[i]]){
-                [self.levelTwoGenres addObject:secondaryUserGenreSelection.allObjects[i]];
+            
+            NSString *key = secondaryUserGenreSelection.allKeys[i];
+            
+            if (![self.levelOneGenres valueForKey:secondaryUserGenreSelection.allKeys[i]]){
+                [self.levelTwoGenres setValue:[secondaryUserGenreSelection valueForKey:key] forKey:key];
             }
         }
         

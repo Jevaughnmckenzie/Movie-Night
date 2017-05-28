@@ -21,9 +21,9 @@ enum buttons{
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, strong) UIBarButtonItem *nextButton;
 
-@property (nonatomic, strong) NSMutableArray *genreList;
-@property (nonatomic, strong) NSMutableSet *selectedRows;
-@property (nonatomic, strong) NSMutableSet *selectedGenres;
+@property (nonatomic, strong) NSDictionary *genreList;
+@property (nonatomic, strong) NSMutableDictionary *selectedRows;
+@property (nonatomic, strong) NSMutableDictionary *selectedGenres;
 
 
 @end
@@ -61,13 +61,13 @@ static const int mainViewController = 0;
     self.mdbClient = [MDBClient new];
     
     // Holds the index paths of the selected rows
-    self.selectedRows = [NSMutableSet new];
+    self.selectedRows = [NSMutableDictionary new];
     
     // Holds the correspnding cell title text for each selected row
-    self.selectedGenres = [NSMutableSet new];
+    self.selectedGenres = [NSMutableDictionary new];
     
     // The list of genres displayed when the view loads
-    self.genreList = [NSMutableArray array];
+    self.genreList = [NSDictionary new];
         
 }
 
@@ -95,7 +95,7 @@ static const int mainViewController = 0;
     
     // Configure the cell...
     
-    cell.textLabel.text = self.genreList[indexPath.row];
+    cell.textLabel.text = self.genreList.allKeys[indexPath.row];
     
     return cell;
 }
@@ -105,7 +105,7 @@ static const int mainViewController = 0;
     GenreCell *selectedCell = [GenreCell new];
     selectedCell = [self.tableView cellForRowAtIndexPath:indexPath];
     
-    [self.selectedGenres addObject:selectedCell.textLabel.text];
+    [self.selectedGenres setValue:[self.genreList valueForKey:selectedCell.textLabel.text] forKey:selectedCell.textLabel.text ];
 
     NSLog(@"%@", self.selectedGenres);
     
@@ -128,7 +128,9 @@ static const int mainViewController = 0;
     GenreCell *deselectedCell = [GenreCell new];
     deselectedCell = [self.tableView cellForRowAtIndexPath:indexPath];
     
-    [self.selectedGenres removeObject:deselectedCell.textLabel.text];
+    
+    
+    [self.selectedGenres removeObjectForKey:deselectedCell.textLabel.text];
     NSLog(@"%@", self.selectedGenres);
     
     if (self.tableView.indexPathsForSelectedRows.count == 3){
@@ -187,9 +189,9 @@ static const int mainViewController = 0;
     
     [self.endpoint genreListEndpoint];
 
-    [self.mdbClient fetchGenres:self.endpoint completion:^(NSArray *genres, NSError* error) {
+    [self.mdbClient fetchGenres:self.endpoint completion:^(NSDictionary *genres, NSError* error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.genreList addObjectsFromArray:genres];
+            self.genreList = genres;
             [self.tableView reloadData];
             
             if (error != nil ){
@@ -203,8 +205,6 @@ static const int mainViewController = 0;
         });
     }];
     
-    
-    //    return tempGenreList;
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{

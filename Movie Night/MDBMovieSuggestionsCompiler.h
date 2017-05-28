@@ -10,10 +10,10 @@
 
 @interface MDBMovieSuggestionsCompiler : NSObject
 
-@property (nonatomic) NSMutableSet *userOnePreferredGeneres;
-@property (nonatomic) NSMutableSet *userTwoPreferredGeneres;
-@property (nonatomic) NSMutableSet *levelOneGenres;
-@property (nonatomic) NSMutableSet *levelTwoGenres;
+@property (nonatomic) NSMutableDictionary *userOnePreferredGeneres;
+@property (nonatomic) NSMutableDictionary *userTwoPreferredGeneres;
+@property (nonatomic) NSMutableDictionary *levelOneGenres;
+@property (nonatomic) NSMutableDictionary *levelTwoGenres;
 @property (nonatomic) NSMutableArray *recommendedMovies;
 
 //-(void)compileMovieRecommendations;

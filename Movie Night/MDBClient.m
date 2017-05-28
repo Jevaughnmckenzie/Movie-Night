@@ -130,7 +130,7 @@ const int ResourceNotFound = 40;
 +(void)displayAlert{
 }
 
--(void) fetchGenres:(MDBEndpoint*)endpoint completion:(void (^)(NSArray*, NSError*))completion{
+-(void) fetchGenres:(MDBEndpoint*)endpoint completion:(void (^)(NSDictionary*, NSError*))completion{
 //    NSURLSession *session = [NSURLSession sessionWithConfiguration: [NSURLSessionConfiguration defaultSessionConfiguration]];
 //    
 //    NSString *urlString = [NSString stringWithFormat:@"%@", self.endpoint.urlString ];
@@ -148,7 +148,10 @@ const int ResourceNotFound = 40;
 //        NSLog(@"resoonse dictionary: %@", self.jsonGenresDict);
     
     [self fetch:endpoint parse:^void(NSDictionary *json, NSError *error) {
-        NSArray *genres = [json valueForKeyPath:@"genres.name"];
+        NSArray *genreKey = [json valueForKeyPath:@"genres.name"];
+        NSArray *genreIDValue = [json valueForKeyPath:@"genres.id"];
+        
+        NSDictionary *genres = [NSDictionary dictionaryWithObjects:genreIDValue forKeys:genreKey];
         
         completion(genres, error);
     }];

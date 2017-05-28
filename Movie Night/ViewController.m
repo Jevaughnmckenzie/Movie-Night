@@ -69,14 +69,14 @@ enum SegueDestination {
         
         
         
-        __weak NSMutableSet *userOneSet = self.suggestionsCompiler.userOnePreferredGeneres;
-        __weak NSMutableSet *userTwoSet = self.suggestionsCompiler.userTwoPreferredGeneres;
+        __weak NSMutableDictionary *userOneGenres = self.suggestionsCompiler.userOnePreferredGeneres;
+        __weak NSMutableDictionary *userTwoGenres = self.suggestionsCompiler.userTwoPreferredGeneres;
         
         resultsController.movieSuggestions = [MDBMovieSuggestionsCompiler new];
         
-        resultsController.movieSuggestions.userOnePreferredGeneres = userOneSet;
+        resultsController.movieSuggestions.userOnePreferredGeneres = userOneGenres;
         
-        resultsController.movieSuggestions.userTwoPreferredGeneres = userTwoSet;
+        resultsController.movieSuggestions.userTwoPreferredGeneres = userTwoGenres;
         
     } else{
         SelectionViewController *controller = [segue destinationViewController];
