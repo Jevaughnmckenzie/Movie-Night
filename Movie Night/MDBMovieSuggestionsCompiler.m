@@ -30,6 +30,9 @@
         NSSet *mainUserGenreSelection = [NSMutableSet new];
         NSSet *secondaryUserGenreSelection = [NSMutableSet new];
         
+        self.levelOneGenres = [NSMutableSet set];
+        self.levelTwoGenres = [NSMutableSet set];
+        
         if (self.userOnePreferredGeneres.count >= self.userTwoPreferredGeneres.count){
             mainUserGenreSelection = self.userOnePreferredGeneres;
             secondaryUserGenreSelection = self.userTwoPreferredGeneres;
@@ -39,22 +42,23 @@
         }
         
         [mainUserGenreSelection enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
-            [self.levelOneGenres addObject:[secondaryUserGenreSelection member:obj]];
+            
+            if ([secondaryUserGenreSelection member:obj]){
+                NSString *mutualObject = [[NSString alloc]initWithString:obj];
+                [self.levelOneGenres addObject:mutualObject];
+            }
             
             if (![self.levelOneGenres containsObject:obj]) {
                 [self.levelTwoGenres addObject:obj];
             }
             
-            for (int i = 0; i < secondaryUserGenreSelection.count; i++){
-                if (![self.levelOneGenres containsObject:secondaryUserGenreSelection.allObjects[i]]){
-                    [self.levelTwoGenres addObject:secondaryUserGenreSelection.allObjects[i]];
-                }
-            }
-            
-            
         }];
         
-        
+        for (int i = 0; i < secondaryUserGenreSelection.count; i++){
+            if (![self.levelOneGenres containsObject:secondaryUserGenreSelection.allObjects[i]]){
+                [self.levelTwoGenres addObject:secondaryUserGenreSelection.allObjects[i]];
+            }
+        }
         
         
     }
