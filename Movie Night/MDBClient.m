@@ -131,21 +131,6 @@ const int ResourceNotFound = 40;
 }
 
 -(void) fetchGenres:(MDBEndpoint*)endpoint completion:(void (^)(NSDictionary*, NSError*))completion{
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration: [NSURLSessionConfiguration defaultSessionConfiguration]];
-//    
-//    NSString *urlString = [NSString stringWithFormat:@"%@", self.endpoint.urlString ];
-////
-//    NSURL *url = [self.endpoint genreListEndpoint];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url
-//                                             cachePolicy:NSURLRequestReturnCacheDataElseLoad
-//                                         timeoutInterval:60];
-//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-//                                        completionHandler:^(NSData * _Nullable data,
-//                                                            NSURLResponse * _Nullable response,
-//                                                            NSError * _Nullable error) {
-//        NSData *jsonData = [[NSData alloc] initWithContentsOfURL:url];
-//        self.jsonGenresDict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
-//        NSLog(@"resoonse dictionary: %@", self.jsonGenresDict);
     
     [self fetch:endpoint parse:^void(NSDictionary *json, NSError *error) {
         NSArray *genreKey = [json valueForKeyPath:@"genres.name"];
@@ -157,7 +142,16 @@ const int ResourceNotFound = 40;
     }];
 }
 
--(void)displayGenres{
+-(void) fetchMovies:(MDBEndpoint*)endpoint completion:(void (^)(NSArray*, NSError*))completion{
+
+    [self fetch:endpoint parse:^(NSDictionary *json, NSError *error) {
+        
+        NSLog(@"The JSON for the results page reads: %@", json);
+        NSArray *movieTitles = [json valueForKeyPath:@"results.original_title"];
+        
+        completion(movieTitles, error);
+    }];
     
 }
+
 @end

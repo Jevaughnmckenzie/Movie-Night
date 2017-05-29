@@ -18,7 +18,7 @@
 
 @interface ViewController : UIViewController
 
-@property (nonatomic, strong) NSArray *currentPhoneSize;
+
 //@property (nonatomic, strong) HomeScreen *homeScreen;
 @property (weak, nonatomic) IBOutlet HomeScreen *homeScreenImage;
 @property (weak, nonatomic) IBOutlet UIButton *userOneBubble;

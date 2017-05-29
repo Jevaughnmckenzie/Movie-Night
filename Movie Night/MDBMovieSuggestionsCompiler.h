@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MDBClient.h"
+#import "MDBEndpoint.h"
 
 @interface MDBMovieSuggestionsCompiler : NSObject
 
@@ -16,8 +18,14 @@
 @property (nonatomic) NSMutableDictionary *levelTwoGenres;
 @property (nonatomic) NSMutableArray *recommendedMovies;
 
-//-(void)compileMovieRecommendations;
+@property (nonatomic) MDBClient *apiClient;
+@property (nonatomic) MDBEndpoint *endpoint;
+
 
 -(void)prioritizeGenreSelections;
+-(void)compileMovieRecommendations;
+-(void)extractMovieRecomendationsToBlock:(void(^)(NSArray*))movieListHolder;
+
+
 
 @end

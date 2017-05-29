@@ -30,7 +30,7 @@ static NSString *const API_KEY = @"6fceaf9e1e4b8cd45f44340c8798a4b1";
     return [NSURLQueryItem queryItemWithName:@"api_key" value:API_KEY];
 }
 
--(NSURL*)genreListEndpoint{
+-(void)setEndpointForGenreList{
     
     self.urlComponents = [NSURLComponents new];
     
@@ -42,10 +42,21 @@ static NSString *const API_KEY = @"6fceaf9e1e4b8cd45f44340c8798a4b1";
     [self setUrl:self.urlComponents.URL];
     [self setRequest:[NSURLRequest requestWithURL:self.url]];
     
-    return self.urlComponents.URL;
+}
+
+-(void)setEndpointForMovieListWithGenreId:(int)Id{
     
+    self.urlComponents = [NSURLComponents new];
     
+    self.urlComponents.scheme = URL_PROTOCOL;
+    self.urlComponents.host = self.baseURL;
+    self.urlComponents.path = [NSString stringWithFormat:@"/3/genre/%i/movies", Id];
+    self.urlComponents.queryItems = @[self.apiKey];
+    
+    [self setUrl:self.urlComponents.URL];
+    [self setRequest:[NSURLRequest requestWithURL:self.url]];
     
 }
+
 
 @end

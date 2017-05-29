@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MDBMovieSuggestionsCompiler.h"
+#import "MDBMovieCell.h"
 
 @class ViewController;
 

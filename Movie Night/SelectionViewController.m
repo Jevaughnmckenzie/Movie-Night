@@ -187,7 +187,7 @@ static const int mainViewController = 0;
     
     self.endpoint = [MDBEndpoint new];
     
-    [self.endpoint genreListEndpoint];
+    [self.endpoint setEndpointForGenreList];
 
     [self.mdbClient fetchGenres:self.endpoint completion:^(NSDictionary *genres, NSError* error) {
         dispatch_async(dispatch_get_main_queue(), ^{

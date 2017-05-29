@@ -22,6 +22,19 @@
  
  */
 
+-(instancetype)init{
+    self = [super init];
+    
+    if (self){
+        
+        _recommendedMovies = [NSMutableArray array];
+        _apiClient = [MDBClient new];
+        
+    }
+    
+    return self;
+}
+
 
 -(void)prioritizeGenreSelections{
     
@@ -50,7 +63,7 @@
             }
         }];
         
-//        // Drians
+        // Drians any extra genres that were not already filtered from the 'secondaryUserGenreSelection' dictionary into the levelTwoGenres dictionary
         for (int i = 0; i < secondaryUserGenreSelection.count; i++){
             
             NSString *key = secondaryUserGenreSelection.allKeys[i];
@@ -63,6 +76,30 @@
         
     }
     NSLog(@"Level one genres: %@\nLevel Two genres: %@", self.levelOneGenres, self.levelTwoGenres);
+}
+
+-(void)compileMovieRecommendations{
+    
+    // Connect to the internet to get movie titles for the most prefered GENRES first
+    [self.levelOneGenres enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        
+        int genreId = [(NSNumber*)obj integerValue];
+        
+        self.endpoint = [MDBEndpoint new];
+        [self.endpoint setEndpointForMovieListWithGenreId:genreId];
+        
+        [self.apiClient fetchMovies:self.endpoint completion:^(NSArray *movieTitles, NSError *error) {
+    
+            [self.recommendedMovies addObjectsFromArray:movieTitles];
+            
+        }];
+    }];
+}
+
+-(void)extractMovieRecomendationsToBlock:(void(^)(NSArray*))movieListHolder{
+    
+    
+    
 }
 
 @end

@@ -18,6 +18,8 @@ enum SegueDestination {
 
 @interface ViewController ()
 
+@property (nonatomic, strong) NSArray *currentPhoneSize;
+
 @end
 
 @implementation ViewController
