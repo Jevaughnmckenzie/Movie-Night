@@ -17,23 +17,31 @@
 @implementation ResultsController
 
 static NSString * const reuseIdentifier = @"MovieCell";
+static void *tableViewDataContext = &tableViewDataContext;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     NSLog(@"userOne genres: %@\nuserTwo genres: %@", self.movieSuggestions.userOnePreferredGeneres, self.movieSuggestions.userTwoPreferredGeneres);
     
+    
+    self.movieList = [NSMutableArray new];
+    
     [self.movieSuggestions prioritizeGenreSelections];
     
+    [self compileMovieRecommendations];
     
-    
-    [self listMovieSuggestions];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+}
+
 
 #pragma mark - Table view data source
 
@@ -80,19 +88,33 @@ static NSString * const reuseIdentifier = @"MovieCell";
 }
 */
 
--(void)listMovieSuggestions{
+
+
+-(void)compileMovieRecommendations{
     
-    [self.movieSuggestions extractMovieRecomendationsToBlock:^(NSArray *) {
+    
+    
+    // Connect to the internet to get movie titles for the most prefered GENRES first
+    [self.movieSuggestions.levelOneGenres enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         
+        int genreId = [(NSNumber*)obj integerValue];
+        
+        self.movieSuggestions.endpoint = [MDBEndpoint new];
+        [self.movieSuggestions.endpoint setEndpointForMovieListWithGenreId:genreId];
+        
+        [self.movieSuggestions.apiClient fetchMovies:self.movieSuggestions.endpoint completion:^(NSArray *movieTitles, NSError *error) {
+            
+            [self.movieList addObjectsFromArray:movieTitles];
+            
+            NSLog(@"Movie titles: %@", self.movieList);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }];
     }];
-    self.movieList = [[NSMutableArray alloc] initWithArray: self.movieSuggestions.recommendedMovies];
-    [self.tableView reloadData];
-    
-    
-    
+
 }
-
-
 
 
 @end

@@ -40,7 +40,7 @@ static NSString *const API_KEY = @"6fceaf9e1e4b8cd45f44340c8798a4b1";
     self.urlComponents.queryItems = @[self.apiKey];
     
     [self setUrl:self.urlComponents.URL];
-    [self setRequest:[NSURLRequest requestWithURL:self.url]];
+    [self setRequest:[NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60]];
     
 }
 
@@ -54,7 +54,7 @@ static NSString *const API_KEY = @"6fceaf9e1e4b8cd45f44340c8798a4b1";
     self.urlComponents.queryItems = @[self.apiKey];
     
     [self setUrl:self.urlComponents.URL];
-    [self setRequest:[NSURLRequest requestWithURL:self.url]];
+    [self setRequest:[NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60]];
     
 }
 

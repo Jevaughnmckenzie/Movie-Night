@@ -23,8 +23,8 @@
 
 
 -(void)prioritizeGenreSelections;
--(void)compileMovieRecommendations;
--(void)extractMovieRecomendationsToBlock:(void(^)(NSArray*))movieListHolder;
+//-(NSArray*)compileMovieRecommendations;
+//-(void)extractMovieRecomendationsToBlock:(void(^)(NSArray*))movieListHolder;
 
 
 

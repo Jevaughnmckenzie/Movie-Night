@@ -66,7 +66,7 @@
 		A8451A561ECA287E003FE223 /* MDBClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBClient.h; sourceTree = "<group>"; };
 		A8451A571ECA287E003FE223 /* MDBClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBClient.m; sourceTree = "<group>"; };
 		A874481C1ED123B600F994D8 /* ResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsController.h; sourceTree = "<group>"; };
-		A874481D1ED123B600F994D8 /* ResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsController.m; sourceTree = "<group>"; };
+		A874481D1ED123B600F994D8 /* ResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		A8B038471ECD3EC400290BA6 /* MDBEndpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDBEndpoint.h; sourceTree = "<group>"; };
 		A8B038481ECD3EC400290BA6 /* MDBEndpoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBEndpoint.m; sourceTree = "<group>"; };
 		A8B0384A1ECE44D400290BA6 /* bubble-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-empty.png"; sourceTree = "<group>"; };

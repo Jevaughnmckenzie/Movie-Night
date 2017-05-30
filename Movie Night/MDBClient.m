@@ -19,7 +19,9 @@ const int ResourceNotFound = 40;
 -(instancetype)init{
     self = [super init];
     
-    _endpoint = [MDBEndpoint new];
+    if (self){
+        _endpoint = [MDBEndpoint new];
+    }
     
     return self;
 }
@@ -145,9 +147,9 @@ const int ResourceNotFound = 40;
 -(void) fetchMovies:(MDBEndpoint*)endpoint completion:(void (^)(NSArray*, NSError*))completion{
 
     [self fetch:endpoint parse:^(NSDictionary *json, NSError *error) {
-        
-        NSLog(@"The JSON for the results page reads: %@", json);
+    
         NSArray *movieTitles = [json valueForKeyPath:@"results.original_title"];
+       
         
         completion(movieTitles, error);
     }];

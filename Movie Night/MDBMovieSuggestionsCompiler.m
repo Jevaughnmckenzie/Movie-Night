@@ -78,28 +78,8 @@
     NSLog(@"Level one genres: %@\nLevel Two genres: %@", self.levelOneGenres, self.levelTwoGenres);
 }
 
--(void)compileMovieRecommendations{
-    
-    // Connect to the internet to get movie titles for the most prefered GENRES first
-    [self.levelOneGenres enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        
-        int genreId = [(NSNumber*)obj integerValue];
-        
-        self.endpoint = [MDBEndpoint new];
-        [self.endpoint setEndpointForMovieListWithGenreId:genreId];
-        
-        [self.apiClient fetchMovies:self.endpoint completion:^(NSArray *movieTitles, NSError *error) {
-    
-            [self.recommendedMovies addObjectsFromArray:movieTitles];
-            
-        }];
-    }];
-}
 
--(void)extractMovieRecomendationsToBlock:(void(^)(NSArray*))movieListHolder{
-    
-    
-    
-}
+
+
 
 @end

@@ -69,8 +69,6 @@ enum SegueDestination {
         ResultsController *resultsController = [ResultsController new];
         resultsController = [segue destinationViewController];
         
-        
-        
         __weak NSMutableDictionary *userOneGenres = self.suggestionsCompiler.userOnePreferredGeneres;
         __weak NSMutableDictionary *userTwoGenres = self.suggestionsCompiler.userTwoPreferredGeneres;
         
@@ -80,12 +78,14 @@ enum SegueDestination {
         
         resultsController.movieSuggestions.userTwoPreferredGeneres = userTwoGenres;
         
+//        [resultsController.movieSuggestions prioritizeGenreSelections];
+        
     } else{
         SelectionViewController *controller = [segue destinationViewController];
         controller.userSender = sender;
     }
     
 }
-//morjcql@gmail.com
+
 
 @end
