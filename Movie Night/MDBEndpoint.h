@@ -25,5 +25,6 @@
 @property (nonatomic, readonly) NSURLRequest *request;
 
 -(void)setEndpointForGenreList;
+-(void)setEndpointForPopularActorsList;
 -(void)setEndpointForMovieListWithGenreId:(int)Id;
 @end

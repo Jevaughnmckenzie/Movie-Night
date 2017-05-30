@@ -13,8 +13,17 @@
 
 @class ViewController;
 
+enum selectionType{
+    genres,
+    actors
+};
+
 @interface SelectionViewController : UITableViewController
 
 @property (nonatomic, strong) UIButton *userSender;
+
+-(instancetype)initWithSelectionType:(int)selectionType;
+
+-(void)setSelectionType:(int)selectionType;
 
 @end

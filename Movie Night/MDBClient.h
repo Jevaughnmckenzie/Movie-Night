@@ -20,6 +20,7 @@
 -(void)fetch:(MDBEndpoint*)endpoint parse:(void(^)(NSDictionary*, NSError*))jsonData;
 
 -(void) fetchGenres:(MDBEndpoint*)endpoint completion:(void (^)(NSDictionary*, NSError*))completion;
+-(void) fetchActors:(MDBEndpoint*)endpoint completion:(void (^)(NSDictionary*, NSError*))completion;
 -(void) fetchMovies:(MDBEndpoint*)endpoint completion:(void (^)(NSArray*, NSError*))completion;
 //-(void) fetchMovieThumbnails;
 //-(void) fetchActors;

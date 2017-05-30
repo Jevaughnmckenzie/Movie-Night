@@ -151,12 +151,18 @@
                     </navigationItem>
                     <connections>
                         <outlet property="doneButton" destination="nky-Yj-K2W" id="fCU-Sr-IdS"/>
+                        <outlet property="nextButton" destination="KEo-4K-cXY" id="63e-30-GBT"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FOe-wy-HpV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Next" id="KEo-4K-cXY">
+                    <connections>
+                        <action selector="storeGenrePreferences:" destination="wCD-wY-Jms" id="7IB-w7-8Vu"/>
+                    </connections>
+                </barButtonItem>
                 <barButtonItem systemItem="done" id="nky-Yj-K2W">
                     <connections>
-                        <action selector="storeGenrePreferences:" destination="wCD-wY-Jms" id="sss-0z-KWY"/>
+                        <action selector="storeActorPreferences:" destination="wCD-wY-Jms" id="aG4-DH-Opt"/>
                     </connections>
                 </barButtonItem>
             </objects>

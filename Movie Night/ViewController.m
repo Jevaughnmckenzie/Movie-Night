@@ -81,8 +81,9 @@ enum SegueDestination {
 //        [resultsController.movieSuggestions prioritizeGenreSelections];
         
     } else{
-        SelectionViewController *controller = [segue destinationViewController];
-        controller.userSender = sender;
+        SelectionViewController *selectionController = [[SelectionViewController alloc] initWithSelectionType:genres];
+        [self.navigationController pushViewController:selectionController animated:YES];
+        selectionController.userSender = sender;
     }
     
 }

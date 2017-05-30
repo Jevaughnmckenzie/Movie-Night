@@ -14,8 +14,16 @@
 
 @property (nonatomic) NSMutableDictionary *userOnePreferredGeneres;
 @property (nonatomic) NSMutableDictionary *userTwoPreferredGeneres;
+
+@property (nonatomic) NSMutableDictionary *userOnePreferredActors;
+@property (nonatomic) NSMutableDictionary *userTwoPreferredActors;
+
 @property (nonatomic) NSMutableDictionary *levelOneGenres;
 @property (nonatomic) NSMutableDictionary *levelTwoGenres;
+
+@property (nonatomic) NSMutableDictionary *levelOneActors;
+@property (nonatomic) NSMutableDictionary *levelTwoActors;
+
 @property (nonatomic) NSMutableArray *recommendedMovies;
 
 @property (nonatomic) MDBClient *apiClient;

@@ -58,5 +58,18 @@ static NSString *const API_KEY = @"6fceaf9e1e4b8cd45f44340c8798a4b1";
     
 }
 
+-(void)setEndpointForPopularActorsList{
+    
+    self.urlComponents = [NSURLComponents new];
+    
+    self.urlComponents.scheme = URL_PROTOCOL;
+    self.urlComponents.host = self.baseURL;
+    self.urlComponents.path = @"/3/person/popular";
+    self.urlComponents.queryItems = @[self.apiKey];
+    
+    [self setUrl:self.urlComponents.URL];
+    [self setRequest:[NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60]];
+    
+}
 
 @end
