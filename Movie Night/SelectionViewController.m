@@ -319,12 +319,14 @@ static const int mainViewController = 0;
     
     if (self.senderTag == userOneButton) {
         self.homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
+        NSLog(@"%@", self.homeScreen.suggestionsCompiler.userOnePreferredGeneres);
     } else if (self.senderTag == userTwoButton){
        self. homeScreen.suggestionsCompiler.userTwoPreferredGeneres = self.selectedGenres;
+        NSLog(@"%@", self.homeScreen.suggestionsCompiler.userTwoPreferredGeneres);
     }
     
-    NSLog(@"%@", self.homeScreen.suggestionsCompiler.userOnePreferredGeneres);
-    NSLog(@"%@", self.homeScreen.suggestionsCompiler.userTwoPreferredGeneres);
+    
+    
     
     SelectionViewController *selectionController = [SelectionViewController new];
     [selectionController setSelectionType:actors];
@@ -337,8 +339,10 @@ static const int mainViewController = 0;
     
     if (self.senderTag == userOneButton) {
         self.homeScreen.suggestionsCompiler.userOnePreferredActors = self.selectedActors;
+        NSLog(@"%@", self.homeScreen.suggestionsCompiler.userOnePreferredActors);
     } else if (self.senderTag == userTwoButton){
         self. homeScreen.suggestionsCompiler.userTwoPreferredActors = self.selectedActors;
+        NSLog(@"%@", self.homeScreen.suggestionsCompiler.userTwoPreferredActors);
     }
     
     if (self.senderTag == userOneButton){
@@ -349,8 +353,8 @@ static const int mainViewController = 0;
         self.homeScreen.userTwoBubble.imageView.image = [UIImage imageNamed:@"bubble-selected.png"];
     }
     
-    NSLog(@"%@", self.homeScreen.suggestionsCompiler.userOnePreferredActors);
-    NSLog(@"%@", self.homeScreen.suggestionsCompiler.userTwoPreferredActors);
+    
+    
     
     [self.navigationController popToRootViewControllerAnimated:YES];
     

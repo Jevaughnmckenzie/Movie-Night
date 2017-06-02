@@ -40,12 +40,18 @@
 @property (nonatomic) __block BOOL moviesByActorsAreLoaded;
 @property (nonatomic) __block BOOL moviesByGenreAreLoaded;
 
+// Keeps track of methods that require a network requeset to make sure that the compilation of data can progress.
+@property (nonatomic)  int completedDependentMethods;
+
+
+
 @end
 
 @implementation ResultsController
 
 static NSString * const reuseIdentifier = @"MovieCell";
-static int const maxNumberOfPagesToLoad = 3;
+static int const maxNumberOfPagesToLoad = 5;
+static int const dependentMethods = 2;
 static void *tableViewDataContext = &tableViewDataContext;
 
 
@@ -54,6 +60,9 @@ static void *tableViewDataContext = &tableViewDataContext;
     
 //    NSLog(@"userOne genres: %@\nuserTwo genres: %@", self.movieSuggestions.userOnePreferredGeneres, self.movieSuggestions.userTwoPreferredGeneres);
     
+    self.completedDependentMethods = 0;
+    
+    [self registerObserverForMovieLists];
     
     self.movieList = [NSMutableSet new];
     NSMutableDictionary *moviesByLevelOneActors = [NSMutableDictionary dictionary];
@@ -66,7 +75,11 @@ static void *tableViewDataContext = &tableViewDataContext;
     
 //    [self compileMovieRecommendations];
     [self getMoviesByGenre];
-    [self getMoviesByActor];
+    [self getMoviesByActors];
+    
+//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+//    
+//    [queue addOperations:[self compileOperations] waitUntilFinished:YES];
     
 }
 
@@ -159,9 +172,45 @@ static void *tableViewDataContext = &tableViewDataContext;
 //
 //}
 
+
+
+//-(NSArray*)compileOperations{
+//    
+//    NSInvocationOperation *getMoviesByGenre = [[NSInvocationOperation alloc] initWithTarget:self
+//                                                                                   selector:@selector(getMoviesByGenre)
+//                                                                                     object:nil];
+//    
+//    NSInvocationOperation *getMoviesByActors = [[NSInvocationOperation alloc] initWithTarget:self
+//                                                                                   selector:@selector(getMoviesByActors)
+//                                                                                     object:nil];
+//    
+//    NSInvocationOperation *compileMovieRecommendations = [[NSInvocationOperation alloc] initWithTarget:self
+//                                                                                    selector:@selector(compileMovieRecommendations)
+//                                                                                      object:nil];
+//    
+//    [compileMovieRecommendations addDependency:getMoviesByActors];
+//    [compileMovieRecommendations addDependency:getMoviesByGenre];
+//    
+//    NSArray *operations = @[getMoviesByGenre, getMoviesByActors, compileMovieRecommendations];
+//    
+//    return operations;
+//}
+
 -(void)compileMovieRecommendations{
     
-    
+    [self.moviesByLevelOneGenres enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull movieByGenreTitle, id  _Nonnull movieByGenreID, BOOL * _Nonnull stop) {
+        [self.moviesByLevelOneActors enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull movieByActorTitle, id  _Nonnull movieByActorID, BOOL * _Nonnull stop) {
+            if ([movieByGenreID isEqual:movieByActorID]){
+                
+                [self.movieList addObject:movieByActorTitle];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
+                
+            }
+        }];
+    }];
     
 }
 
@@ -193,6 +242,7 @@ static void *tableViewDataContext = &tableViewDataContext;
                 
                 if (self.levelOneGenreMovieIterationCount == ((int)self.movieSuggestions.levelOneActors.count * maxNumberOfPagesToLoad)){
                     self.moviesByGenreAreLoaded = YES;
+
                     NSLog(@"getMoviesByGenre prints: %@", self.moviesByLevelOneGenres);
                 } else{
                     self.moviesByGenreAreLoaded = NO;
@@ -203,7 +253,7 @@ static void *tableViewDataContext = &tableViewDataContext;
     }];
 }
 
--(void)getMoviesByActor{
+-(void)getMoviesByActors{
     self.levelOneActorMovieIterationCount = 0;
     
     // Connect to the internet to get movie titles for the most prefered GENRES first
@@ -230,6 +280,7 @@ static void *tableViewDataContext = &tableViewDataContext;
                 
                 if (self.levelOneActorMovieIterationCount == ((int)self.movieSuggestions.levelOneActors.count * maxNumberOfPagesToLoad)){
                     self.moviesByActorsAreLoaded = YES;
+
                     NSLog(@"getMoviesByActor prints: %@", self.moviesByLevelOneActors);
                 } else{
                     self.moviesByActorsAreLoaded = NO;
@@ -287,4 +338,148 @@ static void *tableViewDataContext = &tableViewDataContext;
  
  */
 
+-(void)registerObserverForMovieLists{
+    
+    [self addObserver:self
+           forKeyPath:@"moviesByActorsAreLoaded"
+              options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
+              context:NULL];
+                       
+   [self addObserver:self
+          forKeyPath:@"moviesByGenreAreLoaded"
+             options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
+             context:NULL];
+    
+    [self addObserver:self
+           forKeyPath:@"completedDependentMethods"
+              options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
+              context:NULL];
+    
+}
+
+
+//-(void)observeValueForKeyPath:(NSString *)keyPath
+//                     ofObject:(id)object
+//                       change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+//                      context:(void *)context{
+//    
+//    
+//    
+//    if ([keyPath isEqualToString:@"moviesByActorsAreLoaded"]){
+//        if ([[change valueForKey:NSKeyValueChangeNewKey] isEqualToNumber:@YES]){
+//            
+//            NSLog(@"Movies by actors have been loaded");
+//            
+//            self.completedDependentMethods++;
+//            NSLog(@"%i", self.completedDependentMethods);
+//            
+//        }
+//    } else if ([keyPath isEqualToString:@"moviesByGenreAreLoaded"]){
+//        if ([[change valueForKey:NSKeyValueChangeNewKey] isEqualToNumber:@YES]){
+//            
+//            NSLog(@"Movies by genres have been loaded");
+//            
+////            self.completedDependentMethods++;
+//            NSLog(@"%i", self.completedDependentMethods);
+//        }
+//    } else if ([keyPath isEqualToString:@"completedDependentMethods"]){
+//        if ((int)[change valueForKey:NSKeyValueChangeNewKey] == dependentMethods){
+//            
+//            NSLog(@"Start Compiling!!!");
+//            
+//            
+//        }
+//    } else {
+//        
+//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//        
+//    }
+//    
+//}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                      context:(void *)context{
+    
+    
+    
+    if ([keyPath isEqualToString:@"moviesByActorsAreLoaded"]){
+        if (self.moviesByActorsAreLoaded == YES){
+            
+           
+               NSLog(@"Movies by actors have been loaded");
+//            dispatch_async(dispatch_get_main_queue(), ^{
+               self.completedDependentMethods += 1;
+               NSLog(@"%i", self.completedDependentMethods);
+//           });
+            
+        }
+    } else if ([keyPath isEqualToString:@"moviesByGenreAreLoaded"]){
+        if (self.moviesByGenreAreLoaded == YES){
+            
+           
+                NSLog(@"Movies by genres have been loaded");
+//            dispatch_async(dispatch_get_main_queue(), ^{
+                self.completedDependentMethods += 1;
+                NSLog(@"%i", self.completedDependentMethods);
+//            });
+        }
+    } else if ([keyPath isEqualToString:@"completedDependentMethods"]){
+        
+//        NSLog(@"The value for NSKeyValueChangeNewKey: %i", [[change valueForKey:NSKeyValueChangeNewKey] integerValue]);
+        
+        if ([[change valueForKey:NSKeyValueChangeNewKey] integerValue] == dependentMethods){
+            
+            NSLog(@"Start Compiling!!!");
+            
+            [self compileMovieRecommendations];
+            
+        }
+    }
+//    else {
+//        
+//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//        
+//    }
+    
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    
+    [self removeObserver:self forKeyPath:@"moviesByActorsAreLoaded"];
+    [self removeObserver:self forKeyPath:@"moviesByGenreAreLoaded"];
+    [self removeObserver:self forKeyPath:@"completedDependentMethods"];
+}
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

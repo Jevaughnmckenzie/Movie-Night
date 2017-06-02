@@ -186,7 +186,7 @@ const int ResourceNotFound = 40;
         
         NSDictionary *movieInfo = [NSDictionary dictionaryWithObjects:movieIDs forKeys:movieTitles];
         
-        NSLog(@"Movie Titles and IDs: %@", movieInfo);
+//        NSLog(@"Movie Titles and IDs: %@", movieInfo);
         
         //FIXME: Use movieInfo in the the completion block so it can be parsed and enumerated over later.
         completion(movieInfo, error);
