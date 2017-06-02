@@ -10,6 +10,7 @@
 
 @implementation MDBMovieSuggestionsCompiler
 
+static int const maxNumberOfPagesToLoad = 5;
 /*
  
  give level one preference to genres listed in both genre sets. 
@@ -29,6 +30,7 @@
         
         _recommendedMovies = [NSMutableArray array];
         _apiClient = [MDBClient new];
+        _levelOneMovieRecommendation = [NSMutableDictionary new];
         
     }
     
@@ -75,9 +77,50 @@
         
         
     }
-    NSLog(@"Level one genres: %@\nLevel Two genres: %@", self.levelOneGenres, self.levelTwoGenres);
+//    NSLog(@"Level one genres: %@\nLevel Two genres: %@", self.levelOneGenres, self.levelTwoGenres);
 }
 
+-(void)prioritizeActorSelections{
+    
+    if ((self.userOnePreferredActors.count >= 1) && (self.userTwoPreferredActors.count >= 1)) {
+        
+        NSMutableDictionary *mainUserActorSelection = [NSMutableDictionary new];
+        NSMutableDictionary *secondaryUserActorSelection = [NSMutableDictionary new];
+        
+        self.levelOneActors = [NSMutableDictionary new];
+        self.levelTwoActors = [NSMutableDictionary new];
+        
+        if (self.userOnePreferredActors.count >= self.userTwoPreferredGeneres.count){
+            mainUserActorSelection = self.userOnePreferredActors;
+            secondaryUserActorSelection = self.userTwoPreferredActors;
+        } else {
+            mainUserActorSelection = self.userTwoPreferredActors;
+            secondaryUserActorSelection = self.userOnePreferredActors;
+        }
+        
+        [mainUserActorSelection enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            // Check to see if the two dictionaries have mutual key-value pairs
+            if ([secondaryUserActorSelection valueForKey:key]){
+                [self.levelOneActors setValue:obj forKey:key];
+            }else {
+                [self.levelTwoActors setValue:obj forKey:key];
+            }
+        }];
+        
+        // Drians any extra genres that were not already filtered from the 'secondaryUserGenreSelection' dictionary into the levelTwoGenres dictionary
+        for (int i = 0; i < secondaryUserActorSelection.count; i++){
+            
+            NSString *key = secondaryUserActorSelection.allKeys[i];
+            
+            if (![self.levelOneActors valueForKey:secondaryUserActorSelection.allKeys[i]]){
+                [self.levelTwoActors setValue:[secondaryUserActorSelection valueForKey:key] forKey:key];
+            }
+        }
+        
+        
+    }
+//    NSLog(@"Level one actors: %@\nLevel Two actors: %@", self.levelOneActors, self.levelTwoActors);
+}
 
 
 

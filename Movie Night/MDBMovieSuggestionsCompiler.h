@@ -24,6 +24,9 @@
 @property (nonatomic) NSMutableDictionary *levelOneActors;
 @property (nonatomic) NSMutableDictionary *levelTwoActors;
 
+@property (nonatomic) NSMutableDictionary *levelOneMovieRecommendation;
+@property (nonatomic) NSMutableDictionary *levelTwoMovieRecommendation;
+
 @property (nonatomic) NSMutableArray *recommendedMovies;
 
 @property (nonatomic) MDBClient *apiClient;
@@ -31,6 +34,7 @@
 
 
 -(void)prioritizeGenreSelections;
+-(void)prioritizeActorSelections;
 //-(NSArray*)compileMovieRecommendations;
 //-(void)extractMovieRecomendationsToBlock:(void(^)(NSArray*))movieListHolder;
 

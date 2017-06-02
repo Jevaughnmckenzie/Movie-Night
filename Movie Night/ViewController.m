@@ -32,7 +32,7 @@ enum SegueDestination {
     [self setMainPageViews];
     self.suggestionsCompiler = [MDBMovieSuggestionsCompiler new];
     
-    NSLog(@"%@", self.suggestionsCompiler.userOnePreferredGeneres);
+//    NSLog(@"%@", self.suggestionsCompiler.userOnePreferredGeneres);
 }
 
 
@@ -72,18 +72,23 @@ enum SegueDestination {
         __weak NSMutableDictionary *userOneGenres = self.suggestionsCompiler.userOnePreferredGeneres;
         __weak NSMutableDictionary *userTwoGenres = self.suggestionsCompiler.userTwoPreferredGeneres;
         
+        __weak NSMutableDictionary *userOneActors = self.suggestionsCompiler.userOnePreferredActors;
+        __weak NSMutableDictionary *userTwoActors = self.suggestionsCompiler.userTwoPreferredActors;
+        
         resultsController.movieSuggestions = [MDBMovieSuggestionsCompiler new];
         
         resultsController.movieSuggestions.userOnePreferredGeneres = userOneGenres;
-        
         resultsController.movieSuggestions.userTwoPreferredGeneres = userTwoGenres;
         
-//        [resultsController.movieSuggestions prioritizeGenreSelections];
+        resultsController.movieSuggestions.userOnePreferredActors = userOneActors;
+        resultsController.movieSuggestions.userTwoPreferredActors = userTwoActors;
         
     } else{
-        SelectionViewController *selectionController = [[SelectionViewController alloc] initWithSelectionType:genres];
-        [self.navigationController pushViewController:selectionController animated:YES];
+        SelectionViewController *selectionController = [segue destinationViewController];
+        [selectionController setSelectionType:genres];
+        selectionController.userSender = [UIButton new];
         selectionController.userSender = sender;
+//        NSLog(@"%lu", selectionController.userSender.tag);
     }
     
 }

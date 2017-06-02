@@ -24,8 +24,10 @@ enum buttons{
 @property (nonatomic, strong) MDBEndpoint *endpoint;
 @property (nonatomic, strong) MDBClient *mdbClient;
 
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *doneButton;
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *nextButton;
+@property (strong, nonatomic)  UIBarButtonItem *doneButton;
+@property (nonatomic, strong)  UIBarButtonItem *nextButton;
+
+@property (nonatomic) int senderTag;
 
 @property (nonatomic, strong) NSDictionary *genreList;
 @property (nonatomic, strong) NSDictionary *actorsList;
@@ -42,6 +44,7 @@ enum buttons{
 static NSString * const reuseIdentifier = @"GenreCell";
 static const int mainViewController = 0;
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -55,37 +58,24 @@ static const int mainViewController = 0;
     
     switch (self.selectionType) {
         case genres:
+            
             self.navigationItem.rightBarButtonItem = self.nextButton;
             [self listGenres];
             break;
             
         case actors:
+            
             self.navigationItem.rightBarButtonItem = self.doneButton;
             [self listActors];
             break;
     }
+//    NSLog(@"%i", self.senderTag);
     
     self.tableView.allowsMultipleSelection = YES;
-    
-    
-    
-    
-    
-}
-
--(instancetype)initWithSelectionType:(int)selectionType{
-    self = [super init];
-    
-    if (self){
-        _selectionType = selectionType;
-    }
-    
-    return self;
-   
 }
 
 -(void)initializeProperties{
-        
+    
     // Handles all of the network requesting
     self.mdbClient = [MDBClient new];
     
@@ -95,16 +85,33 @@ static const int mainViewController = 0;
     // Holds the index paths of the selected rows
     self.selectedRows = [NSMutableDictionary new];
     
-    // Holds the correspnding cell title text for each selected row
-    self.selectedGenres = [NSMutableDictionary new];
-    
-    // The list of genres displayed when the view loads
-    self.genreList = [NSDictionary new];
+    // Will be used to refer to which user is currently making selections
+    self.senderTag = (int) self.userSender.tag;
     
     // Holds reference to the root controller of the navigation controller
-    self.homeScreen = self.navigationController.viewControllers[mainViewController];
-        
+    _homeScreen = self.navigationController.viewControllers[mainViewController];
+    
+    switch (_selectionType) {
+        case genres:
+            // Holds the correspnding cell title text for each selected row
+            self.selectedGenres = [NSMutableDictionary new];
+            
+            // The list of genres displayed when the view loads
+            self.genreList = [NSDictionary new];
+            
+            self.nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(storeGenrePreferences:)];
+            break;
+            
+        case actors:
+            self.selectedActors = [NSMutableDictionary new];
+            
+            self.actorsList = [NSDictionary new];
+            
+            self.doneButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(storeActorPreferences:)];
+            break;
+    }
 }
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -121,7 +128,7 @@ static const int mainViewController = 0;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    int numberOfRows = 0;
+     NSUInteger numberOfRows = 0;
     
     switch (self.selectionType) {
         case genres:
@@ -164,11 +171,11 @@ static const int mainViewController = 0;
     switch (self.selectionType) {
         case genres:
             [self.selectedGenres setValue:[self.genreList valueForKey:selectedCell.textLabel.text] forKey:selectedCell.textLabel.text ];
-            NSLog(@"%@", self.selectedGenres);
+//            NSLog(@"%@", self.selectedGenres);
             break;
         case actors:
             [self.selectedActors setValue:[self.actorsList valueForKey:selectedCell.textLabel.text] forKey:selectedCell.textLabel.text ];
-            NSLog(@"%@", self.selectedActors);
+            NSLog(@"selected Actors: %@", self.selectedActors);
             break;
     }
     
@@ -198,11 +205,11 @@ static const int mainViewController = 0;
     switch (self.selectionType) {
         case genres:
             [self.selectedGenres removeObjectForKey:deselectedCell.textLabel.text];
-            NSLog(@"%@", self.selectedGenres);
+//            NSLog(@"%@", self.selectedGenres);
             break;
         case actors:
             [self.selectedActors removeObjectForKey:deselectedCell.textLabel.text];
-            NSLog(@"%@", self.selectedActors);
+//            NSLog(@"%@", self.selectedActors);
             break;
     }
     
@@ -305,35 +312,36 @@ static const int mainViewController = 0;
     }
 }
 
-// MARK: Recomendations Compiler
-- (IBAction)storeGenrePreferences:(id)sender {
+// MARK: Storing Selections
+- (void)storeGenrePreferences:(id)sender {
     
     // Sends the selected genre information to the main screen. Will be passed on to the later ResultsController
     
-    if (self.userSender.tag == userOneButton) {
+    if (self.senderTag == userOneButton) {
         self.homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
-    } else if (self.userSender.tag == userTwoButton){
+    } else if (self.senderTag == userTwoButton){
        self. homeScreen.suggestionsCompiler.userTwoPreferredGeneres = self.selectedGenres;
     }
     
     NSLog(@"%@", self.homeScreen.suggestionsCompiler.userOnePreferredGeneres);
     NSLog(@"%@", self.homeScreen.suggestionsCompiler.userTwoPreferredGeneres);
     
-    SelectionViewController *selectionController = [[SelectionViewController alloc] initWithSelectionType:actors];
+    SelectionViewController *selectionController = [SelectionViewController new];
+    [selectionController setSelectionType:actors];
     [self.navigationController pushViewController:selectionController animated:YES];
     selectionController.userSender = self.userSender;
     
 }
 
-- (IBAction)storeActorPreferences:(id)sender {
+- (void)storeActorPreferences:(id)sender {
     
-    if (self.userSender.tag == userOneButton) {
+    if (self.senderTag == userOneButton) {
         self.homeScreen.suggestionsCompiler.userOnePreferredActors = self.selectedActors;
-    } else if (self.userSender.tag == userTwoButton){
+    } else if (self.senderTag == userTwoButton){
         self. homeScreen.suggestionsCompiler.userTwoPreferredActors = self.selectedActors;
     }
     
-    if (self.userSender.tag == userOneButton){
+    if (self.senderTag == userOneButton){
         //        homeScreen.suggestionsCompiler.userOnePreferredGeneres = self.selectedGenres;
         self.homeScreen.userOneBubble.imageView.image = [UIImage imageNamed:@"bubble-selected.png"];
     } else {

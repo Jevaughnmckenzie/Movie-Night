@@ -20,9 +20,7 @@ enum selectionType{
 
 @interface SelectionViewController : UITableViewController
 
-@property (nonatomic, strong) UIButton *userSender;
-
--(instancetype)initWithSelectionType:(int)selectionType;
+@property (nonatomic)  UIButton *userSender;
 
 -(void)setSelectionType:(int)selectionType;
 

@@ -21,7 +21,8 @@
 
 -(void) fetchGenres:(MDBEndpoint*)endpoint completion:(void (^)(NSDictionary*, NSError*))completion;
 -(void) fetchActors:(MDBEndpoint*)endpoint completion:(void (^)(NSDictionary*, NSError*))completion;
--(void) fetchMovies:(MDBEndpoint*)endpoint completion:(void (^)(NSArray*, NSError*))completion;
+-(void) fetchMoviesByGenre:(MDBEndpoint*)endpoint completion:(void (^)(NSDictionary*, NSError*))completion;
+-(void) fetchMoviesByActor:(MDBEndpoint*)actorMovieCredits completion:(void (^)(NSDictionary*, NSError*))completion;
 //-(void) fetchMovieThumbnails;
 //-(void) fetchActors;
 

@@ -26,5 +26,6 @@
 
 -(void)setEndpointForGenreList;
 -(void)setEndpointForPopularActorsList;
--(void)setEndpointForMovieListWithGenreId:(int)Id;
+-(void)setEndpointForMovieListWithGenreId:(int)Id andJSONPage:(int)page;
+-(void)setEndpointForMovieListWithActorId:(int)Id andJSONPage:(int)page;
 @end

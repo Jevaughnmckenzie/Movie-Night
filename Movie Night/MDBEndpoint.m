@@ -30,6 +30,10 @@ static NSString *const API_KEY = @"6fceaf9e1e4b8cd45f44340c8798a4b1";
     return [NSURLQueryItem queryItemWithName:@"api_key" value:API_KEY];
 }
 
+-(NSURLQueryItem*)pageNumber:(int)page{
+    return [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%i", page]];
+}
+
 -(void)setEndpointForGenreList{
     
     self.urlComponents = [NSURLComponents new];
@@ -44,14 +48,28 @@ static NSString *const API_KEY = @"6fceaf9e1e4b8cd45f44340c8798a4b1";
     
 }
 
--(void)setEndpointForMovieListWithGenreId:(int)Id{
+-(void)setEndpointForMovieListWithGenreId:(int)Id andJSONPage:(int)page{
     
     self.urlComponents = [NSURLComponents new];
     
     self.urlComponents.scheme = URL_PROTOCOL;
     self.urlComponents.host = self.baseURL;
     self.urlComponents.path = [NSString stringWithFormat:@"/3/genre/%i/movies", Id];
-    self.urlComponents.queryItems = @[self.apiKey];
+    self.urlComponents.queryItems = @[self.apiKey, [self pageNumber:page]];
+    
+    [self setUrl:self.urlComponents.URL];
+    [self setRequest:[NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60]];
+    
+}
+
+-(void)setEndpointForMovieListWithActorId:(int)Id andJSONPage:(int)page{
+    
+    self.urlComponents = [NSURLComponents new];
+    
+    self.urlComponents.scheme = URL_PROTOCOL;
+    self.urlComponents.host = self.baseURL;
+    self.urlComponents.path = [NSString stringWithFormat:@"/3/person/%i/movie_credits", Id];
+    self.urlComponents.queryItems = @[self.apiKey, [self pageNumber:page]];
     
     [self setUrl:self.urlComponents.URL];
     [self setRequest:[NSURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60]];

@@ -16,6 +16,7 @@ const int InvalidAPIKey = 30;
 const int ResourceNotFound = 40;
 
 
+
 -(instancetype)init{
     self = [super init];
     
@@ -118,7 +119,7 @@ const int ResourceNotFound = 40;
                 error = [NSError errorWithDomain:MDBNetworkingErrorDomain code:ResourceNotFound userInfo:userInfo];
             }
             
-            NSLog(@"%@", [json valueForKey:@"status_message"]);
+            NSLog(@"%@ at: %@", [json valueForKey:@"status_message"], endpoint.url);
         }
         
            jsonData(json, error);
@@ -132,9 +133,9 @@ const int ResourceNotFound = 40;
 +(void)displayAlert{
 }
 
--(void) fetchGenres:(MDBEndpoint*)endpoint completion:(void (^)(NSDictionary*, NSError*))completion{
+-(void) fetchGenres:(MDBEndpoint*)genres completion:(void (^)(NSDictionary*, NSError*))completion{
     
-    [self fetch:endpoint parse:^void(NSDictionary *genresJSON, NSError *error) {
+    [self fetch:genres parse:^void(NSDictionary *genresJSON, NSError *error) {
         NSArray *genreKey = [genresJSON valueForKeyPath:@"genres.name"];
         NSArray *genreIDValue = [genresJSON valueForKeyPath:@"genres.id"];
         
@@ -144,28 +145,55 @@ const int ResourceNotFound = 40;
     }];
 }
 
--(void) fetchActors:(MDBEndpoint*)endpoint completion:(void (^)(NSDictionary*, NSError*))completion{
+-(void) fetchActors:(MDBEndpoint*)actors completion:(void (^)(NSDictionary*, NSError*))completion{
     
-    [self fetch:endpoint parse:^(NSDictionary *actorsJSON, NSError *error) {
+    [self fetch:actors parse:^(NSDictionary *actorsJSON, NSError *error) {
         NSArray *actorKey = [actorsJSON valueForKeyPath:@"results.name"];
         NSArray *actorIDValue = [actorsJSON valueForKeyPath:@"results.id"];
+        NSArray *movieRoles = [actorsJSON valueForKeyPath:@"results.known_for.id"];
         
-        NSDictionary *actors = [NSDictionary dictionaryWithObject:actorKey forKey:actorIDValue];
         
+        NSDictionary *actors = [NSDictionary dictionaryWithObjects:actorIDValue forKeys:actorKey];
+
         completion(actors, error);
     }];
     
 }
 
--(void) fetchMovies:(MDBEndpoint*)endpoint completion:(void (^)(NSArray*, NSError*))completion{
+-(void) fetchMoviesByGenre:(MDBEndpoint*)movies completion:(void (^)(NSDictionary*, NSError*))completion{
 
-    [self fetch:endpoint parse:^(NSDictionary *json, NSError *error) {
+    [self fetch:movies parse:^(NSDictionary *moviesJSON, NSError *error) {
     
-        NSArray *movieTitles = [json valueForKeyPath:@"results.original_title"];
+        NSArray *movieTitles = [moviesJSON valueForKeyPath:@"results.original_title"];
+        NSArray *movieIDs = [moviesJSON valueForKeyPath:@"results.id"];
         
-        completion(movieTitles, error);
+        NSDictionary *movieInfo = [NSDictionary dictionaryWithObjects:movieIDs forKeys:movieTitles];
+        
+//        NSLog(@"Movie Titles and IDs: %@", movieInfo);
+        
+        //FIXME: Use movieInfo in the the completion block so it can be parsed and enumerated over later.
+        completion(movieInfo, error);
     }];
     
 }
+
+-(void)fetchMoviesByActor:(MDBEndpoint*)actorMovieCredits completion:(void (^)(NSDictionary*, NSError*))completion{
+    
+    [self fetch:actorMovieCredits parse:^(NSDictionary *actorMovieCreditsJSON, NSError *error){
+        
+        NSArray *movieTitles = [actorMovieCreditsJSON valueForKeyPath:@"cast.original_title"];
+        NSArray *movieIDs = [actorMovieCreditsJSON valueForKeyPath:@"cast.id"];
+        
+        NSDictionary *movieInfo = [NSDictionary dictionaryWithObjects:movieIDs forKeys:movieTitles];
+        
+        NSLog(@"Movie Titles and IDs: %@", movieInfo);
+        
+        //FIXME: Use movieInfo in the the completion block so it can be parsed and enumerated over later.
+        completion(movieInfo, error);
+        
+    }];
+    
+}
+
 
 @end
