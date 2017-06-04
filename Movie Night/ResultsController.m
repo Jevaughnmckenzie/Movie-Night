@@ -198,14 +198,16 @@ static void *tableViewDataContext = &tableViewDataContext;
 
 -(void)compileMovieRecommendations{
     
+    ResultsController * __weak weakSelf = self;
+    
     [self.moviesByLevelOneGenres enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull movieByGenreTitle, id  _Nonnull movieByGenreID, BOOL * _Nonnull stop) {
         [self.moviesByLevelOneActors enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull movieByActorTitle, id  _Nonnull movieByActorID, BOOL * _Nonnull stop) {
             if ([movieByGenreID isEqual:movieByActorID]){
                 
-                [self.movieList addObject:movieByActorTitle];
+                [weakSelf.movieList addObject:movieByActorTitle];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.tableView reloadData];
+                    [weakSelf.tableView reloadData];
                 });
                 
             }
@@ -218,34 +220,36 @@ static void *tableViewDataContext = &tableViewDataContext;
     
     self.levelOneGenreMovieIterationCount = 0;
     
+    ResultsController * __weak weakSelf = self;
+    
     // Connect to the internet to get movie titles for the most prefered GENRES first
     [self.movieSuggestions.levelOneGenres enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull genre, id  _Nonnull genreID, BOOL * _Nonnull stop) {
         
         int genreId = [genreID integerValue];
         
-        self.movieSuggestions.endpoint = [MDBEndpoint new];
+        weakSelf.movieSuggestions.endpoint = [MDBEndpoint new];
         
         for (int i = 1 ; i <= maxNumberOfPagesToLoad ; i++){
             
-            [self.movieSuggestions.endpoint setEndpointForMovieListWithGenreId:genreId andJSONPage:i];
+            [weakSelf.movieSuggestions.endpoint setEndpointForMovieListWithGenreId:genreId andJSONPage:i];
             
-            [self.movieSuggestions.apiClient fetchMoviesByGenre:self.movieSuggestions.endpoint completion:^(NSDictionary *movieInfo, NSError *error) {
+            [weakSelf.movieSuggestions.apiClient fetchMoviesByGenre:weakSelf.movieSuggestions.endpoint completion:^(NSDictionary *movieInfo, NSError *error) {
                 
                 
                 
                 // rounding up the first 5 pages of results from the network
                 //request into a dictionary to be enumerated over
                 
-                [self.moviesByLevelOneGenres addEntriesFromDictionary:movieInfo];
+                [weakSelf.moviesByLevelOneGenres addEntriesFromDictionary:movieInfo];
                 
-                self.levelOneGenreMovieIterationCount++;
+                weakSelf.levelOneGenreMovieIterationCount++;
                 
-                if (self.levelOneGenreMovieIterationCount == ((int)self.movieSuggestions.levelOneActors.count * maxNumberOfPagesToLoad)){
-                    self.moviesByGenreAreLoaded = YES;
+                if (weakSelf.levelOneGenreMovieIterationCount == ((int)weakSelf.movieSuggestions.levelOneActors.count * maxNumberOfPagesToLoad)){
+                    weakSelf.moviesByGenreAreLoaded = YES;
 
-                    NSLog(@"getMoviesByGenre prints: %@", self.moviesByLevelOneGenres);
+                    NSLog(@"getMoviesByGenre prints: %@", weakSelf.moviesByLevelOneGenres);
                 } else{
-                    self.moviesByGenreAreLoaded = NO;
+                    weakSelf.moviesByGenreAreLoaded = NO;
                 }
                 
             }];
@@ -256,34 +260,36 @@ static void *tableViewDataContext = &tableViewDataContext;
 -(void)getMoviesByActors{
     self.levelOneActorMovieIterationCount = 0;
     
+    ResultsController * __weak weakSelf = self;
+    
     // Connect to the internet to get movie titles for the most prefered GENRES first
     [self.movieSuggestions.levelOneActors enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull actor, id  _Nonnull actorID, BOOL * _Nonnull stop) {
         
         int actorIdInt = [actorID integerValue];
         
-        self.movieSuggestions.endpoint = [MDBEndpoint new];
+        weakSelf.movieSuggestions.endpoint = [MDBEndpoint new];
         
         for (int i = 1 ; i <= maxNumberOfPagesToLoad ; i++){
             
-            [self.movieSuggestions.endpoint setEndpointForMovieListWithActorId:actorIdInt andJSONPage:i];
+            [weakSelf.movieSuggestions.endpoint setEndpointForMovieListWithActorId:actorIdInt andJSONPage:i];
             
-            [self.movieSuggestions.apiClient fetchMoviesByActor:self.movieSuggestions.endpoint completion:^(NSDictionary *movieInfo, NSError *error) {
+            [weakSelf.movieSuggestions.apiClient fetchMoviesByActor:weakSelf.movieSuggestions.endpoint completion:^(NSDictionary *movieInfo, NSError *error) {
                 
                 //FIXME: implement error handling
                 
                 // rounding up the first 5 pages of results from the network
                 //request into a dictionary to be enumerated over
                 
-                [self.moviesByLevelOneActors addEntriesFromDictionary:movieInfo];
+                [weakSelf.moviesByLevelOneActors addEntriesFromDictionary:movieInfo];
                 
-                self.levelOneActorMovieIterationCount++;
+                weakSelf.levelOneActorMovieIterationCount++;
                 
-                if (self.levelOneActorMovieIterationCount == ((int)self.movieSuggestions.levelOneActors.count * maxNumberOfPagesToLoad)){
-                    self.moviesByActorsAreLoaded = YES;
+                if (weakSelf.levelOneActorMovieIterationCount == ((int)weakSelf.movieSuggestions.levelOneActors.count * maxNumberOfPagesToLoad)){
+                    weakSelf.moviesByActorsAreLoaded = YES;
 
-                    NSLog(@"getMoviesByActor prints: %@", self.moviesByLevelOneActors);
+                    NSLog(@"getMoviesByActor prints: %@", weakSelf.moviesByLevelOneActors);
                 } else{
-                    self.moviesByActorsAreLoaded = NO;
+                    weakSelf.moviesByActorsAreLoaded = NO;
                 }
                 
             }];

@@ -10,7 +10,7 @@
 
 @implementation MDBMovieSuggestionsCompiler
 
-static int const maxNumberOfPagesToLoad = 5;
+
 /*
  
  give level one preference to genres listed in both genre sets. 
